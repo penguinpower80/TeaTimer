@@ -89,7 +89,26 @@
         
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
-            app.initialize();
+		var deviceReadyDeferred = $.Deferred();
+var jqmReadyDeferred = $.Deferred();
+
+document.addEventListener("deviceReady", deviceReady, false);
+
+function deviceReady() {
+  deviceReadyDeferred.resolve();
+}
+
+$(document).one("mobileinit", function () {
+  jqmReadyDeferred.resolve();
+});
+
+$.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
+
+function doWhenBothFrameworksLoaded() {
+  app.initialize();
+}
+
+            
         </script>
     </body>
 </html>
