@@ -38,14 +38,19 @@
             
         
         <!-- Start of first page -->
-<div data-role="page" id="foo" class="app">
+<div data-role="page" id="home" class="app">
 
 	<div data-role="header">
 		<h1>Foo</h1>
 	</div><!-- /header -->
 
 	<div data-role="content">
-        
+        <div data-role="navbar">
+	<ul>
+		<li><a href="#home" class="ui-btn-active ui-state-persist">One</a></li>
+		<li><a href="#teatypetimer">Timer</a></li>
+	</ul>
+</div><!-- /navbar -->
         <h1>PhoneGap</h1>
             <div id="deviceready" class="blink">
                 <p class="event listening">Connecting to Device</p>
@@ -53,28 +58,38 @@
             </div>
         
 		<p>I'm first in the source order so I'm shown as the page.</p>		
-		<p>View internal page called <a href="#bar">bar</a></p>	
+		<p>View internal page called <a href="#teatypetimer">bar</a></p>	
 	</div><!-- /content -->
 
-	<div data-role="footer">
+	<div data-role="footer" data-position="fixed">
 		<h4>Page Footer</h4>
 	</div><!-- /footer -->
 </div><!-- /page -->
 
 
 <!-- Start of second page -->
-<div data-role="page" id="bar">
+<div data-role="page" id="teatypetimer">
 
 	<div data-role="header">
-		<h1>Bar</h1>
+		<h1>Type of Tea</h1>
 	</div><!-- /header -->
 
 	<div data-role="content">	
-		<p>I'm the second in the source order so I'm hidden when the page loads. I'm just shown if a link that references my id is beeing clicked.</p>		
-		<p><a href="#foo">Back to foo</a></p>	
+		<ul data-role="listview">
+	<li><a href="acura.html">White (1 Tbs, 180, 4-5)</a></li>
+	<li><a href="audi.html">China Green (1 tsp, 180, 1-2)</a></li>
+	<li><a href="bmw.html">Japan Green (1tsp, 180, 1-2)</a></li>
+			<li>Pu-Erh (1tsp, 208, 4-5)</li>
+			<li>Oolong, 1tsp 180, 2-3</li>
+			<li>Darjeeling, 1tsp, 180 ,4-5</li>
+			<li>Black, 1tsp 208, 4-5</li>
+			<li>Herbal Blend, 1Tbs, 208, 4-5</li>
+			<li>Fruit Tisane 1Tbs, 208, 5-8</li>
+</ul>
+		<p><a href="#home">Back to foo</a></p>	
 	</div><!-- /content -->
 
-	<div data-role="footer">
+	<div data-role="footer" data-position="fixed">
 		<h4>Page Footer</h4>
 	</div><!-- /footer -->
 </div><!-- /page -->
