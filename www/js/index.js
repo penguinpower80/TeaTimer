@@ -34,34 +34,14 @@ var defaultCategories = [
     {slug: 'fruit-tisane', name: 'Fruit Tisane', 'qty': '1 Tablespoon', 'temp': '208', 'min': 5, 'max': 8, 'notes': ''}
 ]
 
-var app = {
-    // Application Constructor
-    initialize: function () {
-        this.bindEvents();
-    },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function () {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function () {
-        app.receivedEvent('deviceready');
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function (id) {
-        tLog('APP READY');
-        //drawMap();
-        //db = window.openDatabase("gltdb", "1.0", 'gltdb', 100000);
-        //db.transaction(setup, errorHandler, dbReady);
-    }
-};
+ document.addEventListener("deviceready", onDeviceReady, false);
 
+    // PhoneGap is loaded and it is now safe to make calls PhoneGap methods
+    //
+    function onDeviceReady() {
+        // Now safe to use the PhoneGap API
+                tLog('APP READY');
+    }
 
 function errorHandler(e) {
     console.log(e);
