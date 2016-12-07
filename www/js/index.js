@@ -54,13 +54,15 @@ var defaultCategories = [
 
     function doWhenBothFrameworksLoaded() {
             tLog('APP READY');
+            //db = window.openDatabase("gltdb", "1.0", 'gltdb', 100000);
+            //db.transaction(setup, errorHandler, dbReady);
             drawMap();
     }
 
 
 
 function errorHandler(e) {
-    console.log(e);
+    tLog(e);
 }
 //Attempt to update CATEGORIES library from site
 function retrieveCategories() {
@@ -305,9 +307,13 @@ function tLog(x) {
 }
 
 function drawMap(){
+    try {
     var div = document.getElementById("map_canvas");
       // Initialize the map view
       map = plugin.google.maps.Map.getMap(div);
       // Wait until the map is ready status.
       map.addEventListener(plugin.google.maps.event.MAP_READY, function(){});
+  } catch (err) {
+      tLog(err.message);
+  }
 }
