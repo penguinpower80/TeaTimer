@@ -18,6 +18,9 @@
  */
 //EdictWheelsEbbedPsalms25
 
+var deviceReadyDeferred = $.Deferred();
+var jqmReadyDeferred = $.Deferred();
+
 var gltkey = "ck_4b163616463e82881436006679ce5320ec0e07a5";
 var gltsecret = "cs_765f31f076f60d73b019c9774bdbb34159037424";
 var glturl = "https://thegreenleafteacompany.com"; //162.210.96.43
@@ -34,14 +37,27 @@ var defaultCategories = [
     {slug: 'fruit-tisane', name: 'Fruit Tisane', 'qty': '1 Tablespoon', 'temp': '208', 'min': 5, 'max': 8, 'notes': ''}
 ]
 
- document.addEventListener("deviceready", onDeviceReady, false);
 
-    // PhoneGap is loaded and it is now safe to make calls PhoneGap methods
-    //
-    function onDeviceReady() {
-        // Now safe to use the PhoneGap API
-                tLog('APP READY');
+
+
+    document.addEventListener("deviceReady", deviceReady, false);
+
+    function deviceReady() {
+        deviceReadyDeferred.resolve();
     }
+
+    $(document).one("mobileinit", function () {
+        jqmReadyDeferred.resolve();
+    });
+
+    $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
+
+    function doWhenBothFrameworksLoaded() {
+            tLog('APP READY');
+            drawMap();
+    }
+
+
 
 function errorHandler(e) {
     console.log(e);

@@ -158,29 +158,7 @@
         <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
 
         <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-                            var deviceReadyDeferred = $.Deferred();
-                            var jqmReadyDeferred = $.Deferred();
-
-                            document.addEventListener("deviceReady", deviceReady, false);
-
-                            function deviceReady() {
-                                deviceReadyDeferred.resolve();
-                            }
-
-                            $(document).one("mobileinit", function () {
-                                jqmReadyDeferred.resolve();
-                            });
-
-                            $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
-
-                            function doWhenBothFrameworksLoaded() {
-                                app.initialize();
-                            }
-
-
-        </script>
-
+      
 
         <div id="tlog" style="color:black;background-color:white;z-index: 999;position:fixed;right:0;bottom:0;height:150px;width:95%;overflow:auto;border:2px solid red;"></div>
 
