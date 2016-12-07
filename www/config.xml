@@ -64,7 +64,10 @@
     <plugin name="cordova-plugin-network-information" />
     <plugin name="cordova-plugin-splashscreen" />
     <plugin name="cordova-plugin-vibration" />
-    <plugin name="pgb-google-maps" />
+    <plugin name="pgb-google-maps">
+        <param name="API_KEY_FOR_ANDROID" value="YOUR_API_KEY_FOR_ANDROID" />
+        <param name="API_KEY_FOR_IOS" value="YOUR_API_KEY_FOR_IOS" />
+    </plugin>
 
     <!-- Third party plugins -->
     <!-- A list of available plugins are available at https://build.phonegap.com/plugins -->
