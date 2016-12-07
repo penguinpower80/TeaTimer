@@ -65,8 +65,8 @@
     <plugin name="cordova-plugin-splashscreen" />
     <plugin name="cordova-plugin-vibration" />
     <plugin name="pgb-google-maps">
-        <param name="API_KEY_FOR_ANDROID" value="YOUR_API_KEY_FOR_ANDROID" />
-        <param name="API_KEY_FOR_IOS" value="YOUR_API_KEY_FOR_IOS" />
+        <param name="API_KEY_FOR_ANDROID" value="AIzaSyBEsiH-ue9Gh4R3J8ZYDW00jVYfwpQXRKk" />
+        <param name="API_KEY_FOR_IOS" value="AIzaSyBEsiH-ue9Gh4R3J8ZYDW00jVYfwpQXRKk" />
     </plugin>
 
     <!-- Third party plugins -->
