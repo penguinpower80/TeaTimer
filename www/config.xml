@@ -41,6 +41,7 @@
         Define a specific version of PhoneGap to build into your app.
         <preference name="phonegap-version"       value="3.5.0" />
     -->
+    <preference name="backgroundColor" value="0xff6f7a52" />
 
     <!-- Plugins -->
 
@@ -104,6 +105,12 @@
     <string>100</string>
     </gap:config-file>
 
+
+    <gap:plugin name="plugin.google.maps" source="plugins.cordova.io" version="~1.2.4">
+        <param name="API_KEY_FOR_ANDROID" value="xyz" />
+        <param name="API_KEY_FOR_IOS" value="123" />
+      </gap:plugin>
+
     <!--
         Define access to external domains.
 
@@ -117,7 +124,7 @@
         <access origin="http://phonegap.com" browserOnly="true" /> - only allows http://phonegap.com to be opened by the child browser.
     -->
 
-    <access origin="*"/>
+    <access origin="https://thegreenleafteacompany.com"/>
     <!-- Added the following intents to support the removal of whitelist code from base cordova to a plugin -->
     <!-- Whitelist configuration. Refer to https://cordova.apache.org/docs/en/edge/guide_appdev_whitelist_index.md.html -->
     <plugin name="cordova-plugin-whitelist" version="1" />

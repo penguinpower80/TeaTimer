@@ -21,109 +21,165 @@
 -->
 <html>
     <head>
+        <title>Green Leaf Tea Company | Tea Time</title>
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="msapplication-tap-highlight" content="no" />
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-	<meta name="viewport" content="width=device-width, initial-scale=1">         
-        
-        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile.structure-1.4.5.min.css" />
-        <link rel="stylesheet" type="text/css" href="css/GreenTeaLeaf.css" />
+        <link rel="stylesheet" type="text/css" href="css/GreenleafTea.css" />
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile.icons.min.css" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />        
-        <title>Green Leaf Tea Company | Tea Time</title>
+        <link type="text/css" rel="stylesheet" href="css/jqm-font-awesome-isvg-ipng.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
     </head>
     <body>
-            
-        
+
+
         <!-- Start of first page -->
-<div data-role="page" id="home" class="app">
-
-	<div data-role="header">
-		<h1>The Green Tea Leaf Company</h1>
-	</div><!-- /header -->
-
-	<div data-role="content">
-        <div data-role="navbar">
-	<ul>
-		<li><a href="#home" class="ui-btn-active">Home</a></li>
-		<li><a href="#teatypetimer">Teas</a></li>
-		<li><a href="#teatypetimer">Hours</a></li>
-		<li><a href="#teatypetimer">Location</a></li>
-		<li><a href="#teatypetimer">Contact</a></li>
-	</ul>
-</div><!-- /navbar -->
-        <h1>PhoneGap</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received" style='display:none'>Device is Ready</p>
+        <div data-role="page" id="home" class="app">
+            <div data-role="header" data-position='fixed' data-add-back-btn="true">
+                <h1 style='padding:0'>
+                    <img height='38' src='img/gl_logo_oneline.png' alt="The Green Tea Leaf Company" />
+                </h1>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#home" class="ui-btn-active" data-icon='fa-home'>Home</a></li>
+                        <li><a href="#teatypetimer" data-icon="fa-leaf" onclick='retrieveTeas()'>Teas</a></li>
+                        <li><a href="#hours" data-icon='fa-clock-o'>Hours</a></li>
+                        <li><a href="#location" data-icon='fa-map-marker'>Location</a></li>
+                        <li><a href="#contact" data-icon='fa-envelope-o'>Contact</a></li>
+                    </ul>
+                </div>
             </div>
-        
-		<p>I'm first in the source order so I'm shown as the page.</p>		
-		<p>View internal page called <a href="#teatypetimer">bar</a></p>	
-	</div><!-- /content -->
+            <div data-role="content">
 
-	<div data-role="footer" data-position="fixed">
-		<h4>Page Footer</h4>
-	</div><!-- /footer -->
-</div><!-- /page -->
+            </div>
+        </div>
 
 
-<!-- Start of second page -->
-<div data-role="page" id="teatypetimer">
+        <!-- Start of teatypetimer page -->
+        <div data-role="page" id="teatypetimer">
+            <div data-role="header" data-position='fixed' data-add-back-btn="true">
+                <h1 style='padding:0'>
+                    <img height='38' src='img/gl_logo_oneline.png' alt="The Green Tea Leaf Company" />
+                </h1>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#home" data-icon='fa-home'>Home</a></li>
+                        <li><a href="#teatypetimer" class="ui-btn-active" data-icon="fa-leaf" onclick='retrieveTeas()'>Teas</a></li>
+                        <li><a href="#hours" data-icon='fa-clock-o'>Hours</a></li>
+                        <li><a href="#location" data-icon='fa-map-marker'>Location</a></li>
+                        <li><a href="#contact" data-icon='fa-envelope-o'>Contact</a></li>
+                    </ul>
+                </div>
+            </div>
 
-	<div data-role="header">
-		<h1>Select your type of Tea</h1>
-	</div><!-- /header -->
 
-	<div data-role="content">	
-		<ul data-role="listview">
-	<li><a href="#">White (1 Tbs, 180, 4-5)</a></li>
-	<li><a href="#">China Green (1 tsp, 180, 1-2)</a></li>
-	<li><a href="#">Japan Green (1tsp, 180, 1-2)</a></li>
-			<li>Pu-Erh (1tsp, 208, 4-5)</li>
-			<li>Oolong, 1tsp 180, 2-3</li>
-			<li>Darjeeling, 1tsp, 180 ,4-5</li>
-			<li>Black, 1tsp 208, 4-5</li>
-			<li>Herbal Blend, 1Tbs, 208, 4-5</li>
-			<li>Fruit Tisane 1Tbs, 208, 5-8</li>
-</ul>
-	</div><!-- /content -->
+            <div data-role="content">
 
-	<div data-role="footer" data-position="fixed">
-		<a href="#home" data-role="button" data-icon="home">Main</a>
-	</div><!-- /footer -->
-</div><!-- /page -->
-        
-        
-        
+            </div>
+        </div>
+
+
+        <!-- Start of hours page -->
+        <div data-role="page" id="hours">
+            <div data-role="header" data-position='fixed' data-add-back-btn="true">
+                <h1 style='padding:0'>
+                    <img height='38' src='img/gl_logo_oneline.png' alt="The Green Tea Leaf Company" />
+                </h1>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#home" data-icon='fa-home'>Home</a></li>
+                        <li><a href="#teatypetimer" data-icon="fa-leaf" onclick='retrieveTeas()'>Teas</a></li>
+                        <li><a href="#hours" class="ui-btn-active" data-icon='fa-clock-o'>Hours</a></li>
+                        <li><a href="#location" data-icon='fa-map-marker'>Location</a></li>
+                        <li><a href="#contact" data-icon='fa-envelope-o'>Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <div data-role="content">
+
+            </div>
+        </div>
+
+        <!-- Start of location page -->
+        <div data-role="page" id="location">
+            <div data-role="header" data-position='fixed' data-add-back-btn="true">
+                <h1 style='padding:0'>
+                    <img height='38' src='img/gl_logo_oneline.png' alt="The Green Tea Leaf Company" />
+                </h1>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#home" data-icon='fa-home'>Home</a></li>
+                        <li><a href="#teatypetimer" data-icon="fa-leaf" onclick='retrieveTeas()'>Teas</a></li>
+                        <li><a href="#hours" data-icon='fa-clock-o'>Hours</a></li>
+                        <li><a href="#location" class="ui-btn-active"  data-icon='fa-map-marker'>Location</a></li>
+                        <li><a href="#contact" data-icon='fa-envelope-o'>Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <div data-role="content">
+                address
+                map
+            </div>
+        </div>
+
+        <!-- Start of contact page -->
+        <div data-role="page" id="contact">
+            <div data-role="header" data-position='fixed' data-add-back-btn="true">
+                <h1 style='padding:0'>
+                    <img height='38' src='img/gl_logo_oneline.png' alt="The Green Tea Leaf Company" />
+                </h1>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#home" data-icon='fa-home'>Home</a></li>
+                        <li><a href="#teatypetimer" data-icon="fa-leaf" onclick='retrieveTeas()'>Teas</a></li>
+                        <li><a href="#hours" data-icon='fa-clock-o'>Hours</a></li>
+                        <li><a href="#location" data-icon='fa-map-marker'>Location</a></li>
+                        <li><a href="#contact" class="ui-btn-active" data-icon='fa-envelope-o'>Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <div data-role="content">
+
+            </div>
+        </div>
+
+
+
         <script type="text/javascript" src="js/jquery-2.2.4.min.js"></script>
-	    <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
-        
+
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
-		var deviceReadyDeferred = $.Deferred();
-var jqmReadyDeferred = $.Deferred();
+                            var deviceReadyDeferred = $.Deferred();
+                            var jqmReadyDeferred = $.Deferred();
 
-document.addEventListener("deviceReady", deviceReady, false);
+                            document.addEventListener("deviceReady", deviceReady, false);
 
-function deviceReady() {
-  deviceReadyDeferred.resolve();
-}
+                            function deviceReady() {
+                                deviceReadyDeferred.resolve();
+                            }
 
-$(document).one("mobileinit", function () {
-  jqmReadyDeferred.resolve();
-});
+                            $(document).one("mobileinit", function () {
+                                jqmReadyDeferred.resolve();
+                            });
 
-$.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
+                            $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
 
-function doWhenBothFrameworksLoaded() {
-  app.initialize();
-}
+                            function doWhenBothFrameworksLoaded() {
+                                app.initialize();
+                            }
 
-            
+
         </script>
     </body>
 </html>
