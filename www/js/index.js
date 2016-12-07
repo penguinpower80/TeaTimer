@@ -56,7 +56,7 @@ var app = {
     // Update DOM on a Received Event
     receivedEvent: function (id) {
         tLog('APP READY');
-        drawMap();
+        //drawMap();
         //db = window.openDatabase("gltdb", "1.0", 'gltdb', 100000);
         //db.transaction(setup, errorHandler, dbReady);
     }
