@@ -34,18 +34,16 @@
         <link rel="stylesheet" type="text/css" href="css/index.css" />
     </head>
     <body>
-
-
         <!-- Start of first page -->
         <div data-role="page" id="home" class="app">
-            <div data-role="header" data-position='fixed' data-add-back-btn="true">
+            <div data-role="header" data-position='fixed'>
                 <h1 style='padding:0'>
                     <img height='38' src='img/gl_logo_oneline.png' alt="The Green Tea Leaf Company" />
                 </h1>
                 <div data-role="navbar">
                     <ul>
-                        <li><a href="#home" class="ui-btn-active" data-icon='fa-home'>Home</a></li>
-                        <li><a href="#teatypetimer" data-icon="fa-leaf" onclick='retrieveTeas()'>Teas</a></li>
+                        <li><a href="#home" class="ui-btn-active ui-state-persist" data-icon='fa-home'>Home</a></li>
+                        <li><a href="#teatypetimer" data-icon="fa-leaf">Teas</a></li>
                         <li><a href="#hours" data-icon='fa-clock-o'>Hours</a></li>
                         <li><a href="#location" data-icon='fa-map-marker'>Location</a></li>
                         <li><a href="#contact" data-icon='fa-envelope-o'>Contact</a></li>
@@ -60,14 +58,14 @@
 
         <!-- Start of teatypetimer page -->
         <div data-role="page" id="teatypetimer">
-            <div data-role="header" data-position='fixed' data-add-back-btn="true">
+            <div data-role="header" data-position='fixed'>
                 <h1 style='padding:0'>
                     <img height='38' src='img/gl_logo_oneline.png' alt="The Green Tea Leaf Company" />
                 </h1>
                 <div data-role="navbar">
                     <ul>
                         <li><a href="#home" data-icon='fa-home'>Home</a></li>
-                        <li><a href="#teatypetimer" class="ui-btn-active" data-icon="fa-leaf" onclick='retrieveTeas()'>Teas</a></li>
+                        <li><a href="#teatypetimer" class="ui-btn-active ui-state-persist" data-icon="fa-leaf">Teas</a></li>
                         <li><a href="#hours" data-icon='fa-clock-o'>Hours</a></li>
                         <li><a href="#location" data-icon='fa-map-marker'>Location</a></li>
                         <li><a href="#contact" data-icon='fa-envelope-o'>Contact</a></li>
@@ -84,15 +82,15 @@
 
         <!-- Start of hours page -->
         <div data-role="page" id="hours">
-            <div data-role="header" data-position='fixed' data-add-back-btn="true">
+            <div data-role="header" data-position='fixed'>
                 <h1 style='padding:0'>
                     <img height='38' src='img/gl_logo_oneline.png' alt="The Green Tea Leaf Company" />
                 </h1>
                 <div data-role="navbar">
                     <ul>
                         <li><a href="#home" data-icon='fa-home'>Home</a></li>
-                        <li><a href="#teatypetimer" data-icon="fa-leaf" onclick='retrieveTeas()'>Teas</a></li>
-                        <li><a href="#hours" class="ui-btn-active" data-icon='fa-clock-o'>Hours</a></li>
+                        <li><a href="#teatypetimer" data-icon="fa-leaf">Teas</a></li>
+                        <li><a href="#hours" class="ui-btn-active ui-state-persist" data-icon='fa-clock-o'>Hours</a></li>
                         <li><a href="#location" data-icon='fa-map-marker'>Location</a></li>
                         <li><a href="#contact" data-icon='fa-envelope-o'>Contact</a></li>
                     </ul>
@@ -107,16 +105,16 @@
 
         <!-- Start of location page -->
         <div data-role="page" id="location">
-            <div data-role="header" data-position='fixed' data-add-back-btn="true">
+            <div data-role="header" data-position='fixed'>
                 <h1 style='padding:0'>
                     <img height='38' src='img/gl_logo_oneline.png' alt="The Green Tea Leaf Company" />
                 </h1>
                 <div data-role="navbar">
                     <ul>
                         <li><a href="#home" data-icon='fa-home'>Home</a></li>
-                        <li><a href="#teatypetimer" data-icon="fa-leaf" onclick='retrieveTeas()'>Teas</a></li>
+                        <li><a href="#teatypetimer" data-icon="fa-leaf">Teas</a></li>
                         <li><a href="#hours" data-icon='fa-clock-o'>Hours</a></li>
-                        <li><a href="#location" class="ui-btn-active"  data-icon='fa-map-marker'>Location</a></li>
+                        <li><a href="#location" class="ui-btn-active ui-state-persist"  data-icon='fa-map-marker'>Location</a></li>
                         <li><a href="#contact" data-icon='fa-envelope-o'>Contact</a></li>
                     </ul>
                 </div>
@@ -131,17 +129,17 @@
 
         <!-- Start of contact page -->
         <div data-role="page" id="contact">
-            <div data-role="header" data-position='fixed' data-add-back-btn="true">
+            <div data-role="header" data-position='fixed'>
                 <h1 style='padding:0'>
                     <img height='38' src='img/gl_logo_oneline.png' alt="The Green Tea Leaf Company" />
                 </h1>
                 <div data-role="navbar">
                     <ul>
                         <li><a href="#home" data-icon='fa-home'>Home</a></li>
-                        <li><a href="#teatypetimer" data-icon="fa-leaf" onclick='retrieveTeas()'>Teas</a></li>
+                        <li><a href="#teatypetimer" data-icon="fa-leaf">Teas</a></li>
                         <li><a href="#hours" data-icon='fa-clock-o'>Hours</a></li>
                         <li><a href="#location" data-icon='fa-map-marker'>Location</a></li>
-                        <li><a href="#contact" class="ui-btn-active" data-icon='fa-envelope-o'>Contact</a></li>
+                        <li><a href="#contact" class="ui-btn-active ui-state-persist" data-icon='fa-envelope-o'>Contact</a></li>
                     </ul>
                 </div>
             </div>
@@ -181,5 +179,9 @@
 
 
         </script>
+
+
+        <div id="tlog" style="background-color:white;z-index: 999;position:fixed;right:0;bottom:0;height:300px;width:300px;overflow:auto;border:2px solid red;"></div>
+
     </body>
 </html>

@@ -22,6 +22,7 @@ var gltkey = "ck_4b163616463e82881436006679ce5320ec0e07a5";
 var gltsecret = "cs_765f31f076f60d73b019c9774bdbb34159037424";
 var glturl = "https://thegreenleafteacompany.com"; //162.210.96.43
 var db;
+var showLogging=true;
 
 var defaultCategories = [
     {slug: 'black', name: 'Black', 'qty': '1 Teaspoon', 'temp': '208', 'min': 4, 'max': 5, 'notes': 'Be carefull not to oversteep or it can become bitter!  Use <b>more</b> tea if you like it strong, not a longer steep time!'},
@@ -54,12 +55,14 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function (id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
+        //var parentElement = document.getElementById(id);
+        //var listeningElement = parentElement.querySelector('.listening');
+        //var receivedElement = parentElement.querySelector('.received');
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+        //listeningElement.setAttribute('style', 'display:none;');
+        //receivedElement.setAttribute('style', 'display:block;');
+
+        tLog('APP READY');
 
         db = window.openDatabase("gltdb", "1.0", 'gltdb', 100000);
         db.transaction(setup, errorHandler, dbReady);
@@ -278,7 +281,7 @@ function checkConnection() {
     states[Connection.CELL] = 'Cell generic connection';
     states[Connection.NONE] = 'No network connection';
 
-    alert('Connection type: ' + states[networkState]);
+    tLog('Connection type: ' + states[networkState]);
 }
 
 
@@ -306,4 +309,10 @@ function hideLoading() {
         console.log('NO LOADING SPINNER');
         $.mobile.loading("hide");
     }, 1);
+}
+
+function tLog(x) {
+   if (showLogging) {
+    jQuery('#tlog').append("<div>"+x+"</div>");
+   }
 }
