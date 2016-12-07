@@ -55,19 +55,10 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function (id) {
-        //var parentElement = document.getElementById(id);
-        //var listeningElement = parentElement.querySelector('.listening');
-        //var receivedElement = parentElement.querySelector('.received');
-
-        //listeningElement.setAttribute('style', 'display:none;');
-        //receivedElement.setAttribute('style', 'display:block;');
-
         tLog('APP READY');
-
-        db = window.openDatabase("gltdb", "1.0", 'gltdb', 100000);
-        db.transaction(setup, errorHandler, dbReady);
-
-        console.log('Received Event: ' + id);
+        drawMap();
+        //db = window.openDatabase("gltdb", "1.0", 'gltdb', 100000);
+        //db.transaction(setup, errorHandler, dbReady);
     }
 };
 
@@ -315,4 +306,12 @@ function tLog(x) {
    if (showLogging) {
     jQuery('#tlog').append("<div>"+x+"</div>");
    }
+}
+
+function drawMap(){
+    var div = document.getElementById("map_canvas");
+      // Initialize the map view
+      map = plugin.google.maps.Map.getMap(div);
+      // Wait until the map is ready status.
+      map.addEventListener(plugin.google.maps.event.MAP_READY, function(){});
 }
