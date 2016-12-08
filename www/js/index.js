@@ -1,35 +1,6 @@
-    document.addEventListener("deviceReady", deviceReady, false);
-
-    function deviceReady() {
-        console.log('redy');
-    }
-
-/*
-
-
 
 var deviceReadyDeferred = $.Deferred();
 var jqmReadyDeferred = $.Deferred();
-
-var gltkey = "ck_4b163616463e82881436006679ce5320ec0e07a5";
-var gltsecret = "cs_765f31f076f60d73b019c9774bdbb34159037424";
-var glturl = "https://thegreenleafteacompany.com"; //162.210.96.43
-var db;
-var map;
-var showLogging=true;
-
-var defaultCategories = [
-    {slug: 'black', name: 'Black', 'qty': '1 Teaspoon', 'temp': '208', 'min': 4, 'max': 5, 'notes': 'Be carefull not to oversteep or it can become bitter!  Use <b>more</b> tea if you like it strong, not a longer steep time!'},
-    {slug: 'white', name: 'White', 'qty': '1 Tablespoon', 'temp': '180', min: 4, 'max': 5, 'notes': ''},
-    {slug: 'green', name: 'Green', 'qty': '1 teaspoon', 'temp': '180', 'min': 1, 'max': 2, 'notes': ''},
-    {slug: 'pu-erh', name: 'Pu-Erh', 'qty': '1 teaspoon', 'temp': '208', 'min': 4, 'max': 5, 'notes': ''},
-    {slug: 'oolong', name: 'Oolong', 'qty': '1 teaspoon', 'temp': '180', 'min': 2, 'max': 3, 'notes': ''},
-    {slug: 'herbal-tisane', name: 'Herbal Blend', 'qty': '1 Tablespoon', 'temp': '208', 'min': 4, 'max': 5, 'notes': ''},
-    {slug: 'fruit-tisane', name: 'Fruit Tisane', 'qty': '1 Tablespoon', 'temp': '208', 'min': 5, 'max': 8, 'notes': ''}
-]
-
-
-
 
     document.addEventListener("deviceReady", deviceReady, false);
 
@@ -52,11 +23,37 @@ var defaultCategories = [
             //drawMap();
     }
 
+/*
 
 
-function errorHandler(e) {
-    tLog(e);
-}
+
+
+
+var gltkey = "ck_4b163616463e82881436006679ce5320ec0e07a5";
+var gltsecret = "cs_765f31f076f60d73b019c9774bdbb34159037424";
+var glturl = "https://thegreenleafteacompany.com"; //162.210.96.43
+var db;
+var map;
+var showLogging=true;
+
+var defaultCategories = [
+    {slug: 'black', name: 'Black', 'qty': '1 Teaspoon', 'temp': '208', 'min': 4, 'max': 5, 'notes': 'Be carefull not to oversteep or it can become bitter!  Use <b>more</b> tea if you like it strong, not a longer steep time!'},
+    {slug: 'white', name: 'White', 'qty': '1 Tablespoon', 'temp': '180', min: 4, 'max': 5, 'notes': ''},
+    {slug: 'green', name: 'Green', 'qty': '1 teaspoon', 'temp': '180', 'min': 1, 'max': 2, 'notes': ''},
+    {slug: 'pu-erh', name: 'Pu-Erh', 'qty': '1 teaspoon', 'temp': '208', 'min': 4, 'max': 5, 'notes': ''},
+    {slug: 'oolong', name: 'Oolong', 'qty': '1 teaspoon', 'temp': '180', 'min': 2, 'max': 3, 'notes': ''},
+    {slug: 'herbal-tisane', name: 'Herbal Blend', 'qty': '1 Tablespoon', 'temp': '208', 'min': 4, 'max': 5, 'notes': ''},
+    {slug: 'fruit-tisane', name: 'Fruit Tisane', 'qty': '1 Tablespoon', 'temp': '208', 'min': 5, 'max': 8, 'notes': ''}
+]
+
+
+
+
+
+
+
+
+
 //Attempt to update CATEGORIES library from site
 function retrieveCategories() {
     showLoading();
@@ -299,6 +296,10 @@ function tLog(x) {
    }
 }
 
+
+
+*/
+
 function drawMap(){
     try {
     var div = document.getElementById("map_canvas");
@@ -311,4 +312,6 @@ function drawMap(){
   }
 }
 
-*/
+function errorHandler(e) {
+    tLog(e);
+}
