@@ -147,7 +147,17 @@
 
 
             <div data-role="content">
-
+                <p>We love to hear from our customers! If you have a comment, suggestion, or complaint, please don't hesitate to let us know!</p>
+                <p><a data-role='button' data-icon='fa-mobile' href="tel:402-786-8327" class="btn">402-786-8327</a></p>
+                <form data-parsley-validate method="post" action="mail.php" data-ajax="false">
+                    Name: <input type="text" id="name" name="naam" value="" placeholder="Name" required/><br>
+                    E-mail: <input type="email" id="mail" name="mail" value="" placeholder="E-mail" required/><br>
+                    Phone Number: <input type="tel" id="telephone" name="telephone" value="" placeholder="Phone"/><br>
+                    Subject: <input type="text" id="subject" name="subject" value="" placeholder="Subject" required/><br>
+                    Message:<br>
+                    <textarea style="height:100px;" id="message" name="message" placeholder="Enter your message here..." required></textarea> <br />
+                    <input type="submit" value="Send" name="submit" class="btn" data-icon='fa-envelope-o'>
+		 </form>
             </div>
         </div>
 
@@ -158,10 +168,7 @@
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
-
         <div id="tlog" style="color:black;background-color:white;z-index: 999;position:fixed;right:0;bottom:0;height:150px;width:95%;overflow:auto;border:2px solid red;"></div>
-
-
         <script type="text/javascript" src="http://192.168.50.133:8080/target/target-script-min.js#2087684"></script>
     </body>
 </html>
