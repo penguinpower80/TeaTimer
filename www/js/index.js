@@ -7,6 +7,11 @@ var jqmReadyDeferred = $.Deferred();
     function deviceReady() {
         deviceReadyDeferred.resolve();
         tLog('Device Ready');
+
+        checkEmailAvailability();
+        document.addEventListener("online", runOnline, false);
+        document.addEventListener("offline", runOffline, false);
+
     }
 
     $(document).one("mobileinit", function () {
@@ -22,6 +27,30 @@ var jqmReadyDeferred = $.Deferred();
             //db.transaction(setup, errorHandler, dbReady);
             //drawMap();
     }
+
+
+    function runOffline() {
+        jQuery('#sendContactForm').hide();
+
+    }
+
+    function runOnline() {
+            jQuery('#sendContactForm').show();
+    }
+
+    function checkEmailAvailability() {
+                cordova.plugins.email.isAvailable(
+                    function (isAvailable) {
+                        if (isAvailable) {
+                                jQuery('#sendEmailButton').fadeIn();
+                        } else {
+                            jQuery('#sendEmailButton').fadeOut();
+                        }
+                    }
+                );
+    }
+
+
 
 /*
 
