@@ -64,7 +64,7 @@
     <plugin name="cordova-plugin-network-information" />
     <plugin name="cordova-plugin-splashscreen" />
     <plugin name="cordova-plugin-vibration" />
-    <plugin name="cordova-google-maps">
+    <plugin name="cordova-plugin-googlemaps">
         <param name="API_KEY_FOR_ANDROID" value="AIzaSyBEsiH-ue9Gh4R3J8ZYDW00jVYfwpQXRKk" />
     </plugin>
     <!-- Third party plugins -->
