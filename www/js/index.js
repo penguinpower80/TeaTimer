@@ -9,6 +9,7 @@ var jqmReadyDeferred = $.Deferred();
         checkEmailAvailability();
         document.addEventListener("online", runOnline, false);
         document.addEventListener("offline", runOffline, false);
+        highlightDay();
 
     }
 
@@ -22,6 +23,12 @@ var jqmReadyDeferred = $.Deferred();
             //db = window.openDatabase("gltdb", "1.0", 'gltdb', 100000);
             //db.transaction(setup, errorHandler, dbReady);
             //drawMap();
+    }
+
+    function highlightDay(){
+        var d = new Date();
+        var n = d.getDay();
+        jQuery('#hours-table tbody tr:eq('+n+')').addClass('today');
     }
 
 

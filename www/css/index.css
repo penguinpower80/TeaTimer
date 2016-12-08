@@ -4,3 +4,7 @@
     background-position:center center;
 }
 .ui-header .ui-title {margin:0 auto;}
+
+#hours-table .today {
+    background-color:black;
+}

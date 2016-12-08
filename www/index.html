@@ -106,7 +106,7 @@
                         </h3>
                     </center>
 
-<table data-role="table" id="my-table" data-mode="reflow" class="ui-responsive">
+<table data-role="table" id="hours-table" data-mode="reflow" class="ui-responsive">
   <thead>
     <tr>
       <th>Day</th>
@@ -114,6 +114,10 @@
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <th>Sunday</th>
+      <td>1:00pm - 4:00pm</td>
+    </tr>
     <tr>
       <th>Monday</th>
       <td>CLOSED</td>
@@ -137,10 +141,6 @@
     <tr>
       <th>Saturday</th>
       <td>9:00am - 4:00pm</td>
-    </tr>
-    <tr>
-      <th>Sunday</th>
-      <td>1:00pm - 4:00pm</td>
     </tr>
     </tbody>
 </table>
@@ -206,7 +206,7 @@
                     <p><a data-role='button' data-icon='fa-mobile' href="tel:402-786-8327" class="btn">402-786-8327</a></p>
                     <p><a data-role='button' id="sendEmailButton" data-icon='fa-envelope-o' href="#" onclick="sendEmail()" class="btn">E-Mail</a></p>
 
-                    <form data-parsley-validate method="post" action="mail.php" data-ajax="false" id="sendContactForm">
+                    <form data-parsley-validate method="post" target="_blank" action="https://thegreenleafteacompany.com/mail.php" data-ajax="false" id="sendContactForm">
                         Name: <input type="text" id="name" name="naam" value="" placeholder="Name" required/><br>
                         E-mail: <input type="email" id="mail" name="mail" value="" placeholder="E-mail" required/><br>
                         Phone Number: <input type="tel" id="telephone" name="telephone" value="" placeholder="Phone"/><br>
