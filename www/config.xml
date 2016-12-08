@@ -3,7 +3,7 @@
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.phonegap.helloworld"
+        id        = "com.greenleaf.teatimer"
         version   = "1.0.0">
 
     <name>Green Leaf Tea Timer</name>
@@ -64,10 +64,7 @@
     <plugin name="cordova-plugin-network-information" />
     <plugin name="cordova-plugin-splashscreen" />
     <plugin name="cordova-plugin-vibration" />
-    <plugin name="pgb-google-maps">
-        <param name="API_KEY_FOR_ANDROID" value="AIzaSyBEsiH-ue9Gh4R3J8ZYDW00jVYfwpQXRKk" />
-        <param name="API_KEY_FOR_IOS" value="AIzaSyBEsiH-ue9Gh4R3J8ZYDW00jVYfwpQXRKk" />
-    </plugin>
+    <plugin name="pgb-google-maps" />
 
     <!-- Third party plugins -->
     <!-- A list of available plugins are available at https://build.phonegap.com/plugins -->
@@ -136,9 +133,11 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <platform name="android">
+        <param name="API_KEY_FOR_ANDROID" value="AIzaSyBEsiH-ue9Gh4R3J8ZYDW00jVYfwpQXRKk" />
         <allow-intent href="market:*" />
     </platform>
     <platform name="ios">
+        <param name="API_KEY_FOR_IOS" value="AIzaSyBEsiH-ue9Gh4R3J8ZYDW00jVYfwpQXRKk" />
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
