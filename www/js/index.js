@@ -313,5 +313,5 @@ function drawMap(){
 }
 
 function errorHandler(e) {
-    tLog(e);
+    console.log(e);
 }
