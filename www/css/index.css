@@ -1,1 +1,6 @@
+#map_canvas {
+    background-image: url('../img/glt_map_static.png');
+    background-repeat:no-repeat;
+    background-position:center center;
+}
 .ui-header .ui-title {margin:0 auto;}

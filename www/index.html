@@ -99,7 +99,52 @@
 
 
             <div data-role="content">
+                <div class='ui-body ui-corner-all ui-shadow' data-theme="c">
+                    <center>
+                        <h3>
+                            HOURS OF OPERATION
+                        </h3>
+                    </center>
 
+<table data-role="table" id="my-table" data-mode="reflow" class="ui-responsive">
+  <thead>
+    <tr>
+      <th>Day</th>
+      <th>Hours</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Monday</th>
+      <td>CLOSED</td>
+    </tr>
+    <tr>
+      <th>Tuesday</th>
+      <td>CLOSED</td>
+    </tr>
+    <tr>
+      <th>Wednesday</th>
+      <td>9:00am - 6:00pm</td>
+    </tr>
+    <tr>
+      <th>Thursday</th>
+      <td>9:00am - 6:00pm</td>
+    </tr>
+    <tr>
+      <th>Friday</th>
+      <td>9:00am - 6:00pm</td>
+    </tr>
+    <tr>
+      <th>Saturday</th>
+      <td>9:00am - 4:00pm</td>
+    </tr>
+    <tr>
+      <th>Sunday</th>
+      <td>1:00pm - 4:00pm</td>
+    </tr>
+    </tbody>
+</table>
+                </div>
             </div>
         </div>
 
@@ -122,52 +167,62 @@
 
 
             <div data-role="content">
+
                 <div style="width:100%;height:400px" id="map_canvas"></div>
-                address
-                map
+                <br />
+                <div class='ui-body ui-corner-all ui-shadow' data-theme="c">
+                    <center>
+                        <h3>
+                            2917 Pine Lake Road, <br />
+                            Suite D <br />
+                            Lincoln, NE 68516 <br />
+                        </h3>
+                    </center>
+
+                </div>
             </div>
         </div>
 
-        <!-- Start of contact page -->
-        <div data-role="page" id="contact">
-            <div data-role="header" data-position='fixed'>
-                <h1 style='padding:0'>
-                    <img height='38' src='img/gl_logo_oneline.png' alt="The Green Tea Leaf Company" />
-                </h1>
-                <div data-role="navbar">
-                    <ul>
-                        <li><a href="#home" data-icon='fa-home'>Home</a></li>
-                        <li><a href="#teatypetimer" data-icon="fa-leaf">Teas</a></li>
-                        <li><a href="#hours" data-icon='fa-clock-o'>Hours</a></li>
-                        <li><a href="#location" data-icon='fa-map-marker'>Location</a></li>
-                        <li><a href="#contact" class="ui-btn-active ui-state-persist" data-icon='fa-envelope-o'>Contact</a></li>
-                    </ul>
+            <!-- Start of contact page -->
+            <div data-role="page" id="contact">
+                <div data-role="header" data-position='fixed'>
+                    <h1 style='padding:0'>
+                        <img height='38' src='img/gl_logo_oneline.png' alt="The Green Tea Leaf Company" />
+                    </h1>
+                    <div data-role="navbar">
+                        <ul>
+                            <li><a href="#home" data-icon='fa-home'>Home</a></li>
+                            <li><a href="#teatypetimer" data-icon="fa-leaf">Teas</a></li>
+                            <li><a href="#hours" data-icon='fa-clock-o'>Hours</a></li>
+                            <li><a href="#location" data-icon='fa-map-marker'>Location</a></li>
+                            <li><a href="#contact" class="ui-btn-active ui-state-persist" data-icon='fa-envelope-o'>Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+
+                <div data-role="content">
+                    <p>We love to hear from our customers! If you have a comment, suggestion, or complaint, please don't hesitate to let us know!</p>
+                    <p><a data-role='button' data-icon='fa-mobile' href="tel:402-786-8327" class="btn">402-786-8327</a></p>
+                    <form data-parsley-validate method="post" action="mail.php" data-ajax="false">
+                        Name: <input type="text" id="name" name="naam" value="" placeholder="Name" required/><br>
+                        E-mail: <input type="email" id="mail" name="mail" value="" placeholder="E-mail" required/><br>
+                        Phone Number: <input type="tel" id="telephone" name="telephone" value="" placeholder="Phone"/><br>
+                        Subject: <input type="text" id="subject" name="subject" value="" placeholder="Subject" required/><br>
+                        Message:<br>
+                        <textarea style="height:100px;" id="message" name="message" placeholder="Enter your message here..." required></textarea> <br />
+                        <input type="submit" value="Send" name="submit" class="btn" data-icon='fa-envelope-o'>
+                    </form>
                 </div>
             </div>
 
 
-            <div data-role="content">
-                <p>We love to hear from our customers! If you have a comment, suggestion, or complaint, please don't hesitate to let us know!</p>
-                <p><a data-role='button' data-icon='fa-mobile' href="tel:402-786-8327" class="btn">402-786-8327</a></p>
-                <form data-parsley-validate method="post" action="mail.php" data-ajax="false">
-                    Name: <input type="text" id="name" name="naam" value="" placeholder="Name" required/><br>
-                    E-mail: <input type="email" id="mail" name="mail" value="" placeholder="E-mail" required/><br>
-                    Phone Number: <input type="tel" id="telephone" name="telephone" value="" placeholder="Phone"/><br>
-                    Subject: <input type="text" id="subject" name="subject" value="" placeholder="Subject" required/><br>
-                    Message:<br>
-                    <textarea style="height:100px;" id="message" name="message" placeholder="Enter your message here..." required></textarea> <br />
-                    <input type="submit" value="Send" name="submit" class="btn" data-icon='fa-envelope-o'>
-		 </form>
-            </div>
-        </div>
 
 
-
-
-        <script type="text/javascript" src="js/jquery-2.2.4.min.js"></script>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript" src="http://192.168.50.133:8080/target/target-script-min.js#2087684"></script>
+            <script type="text/javascript" src="js/jquery-2.2.4.min.js"></script>
+            <script type="text/javascript" src="cordova.js"></script>
+            <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
+            <script type="text/javascript" src="js/index.js"></script>
+            <script type="text/javascript" src="http://192.168.50.133:8080/target/target-script-min.js#2087684"></script>
     </body>
 </html>
