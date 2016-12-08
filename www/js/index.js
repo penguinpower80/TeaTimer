@@ -300,6 +300,21 @@ function tLog(x) {
 
 */
 
+
+function sendEmail(){
+    cordova.plugins.email.isAvailable(
+    function (isAvailable) {
+        if (isAvailable) {
+            cordova.plugins.email.open({
+                    to: "info@thegreenleafteacompany.com"
+                }, function(){});
+        }
+    }
+);
+
+
+}
+
 function drawMap(){
     try {
     var div = document.getElementById("map_canvas");
