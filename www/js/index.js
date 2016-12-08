@@ -308,6 +308,8 @@ function sendEmail(){
             cordova.plugins.email.open({
                     to: "info@thegreenleafteacompany.com"
                 }, function(){});
+        } else {
+            console.log('Email is not available on this platform');
         }
     }
 );
