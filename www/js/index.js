@@ -1,22 +1,12 @@
+    document.addEventListener("deviceReady", deviceReady, false);
+
+    function deviceReady() {
+        console.log('redy');
+    }
+
 /*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-//EdictWheelsEbbedPsalms25
+
+
 
 var deviceReadyDeferred = $.Deferred();
 var jqmReadyDeferred = $.Deferred();
@@ -25,6 +15,7 @@ var gltkey = "ck_4b163616463e82881436006679ce5320ec0e07a5";
 var gltsecret = "cs_765f31f076f60d73b019c9774bdbb34159037424";
 var glturl = "https://thegreenleafteacompany.com"; //162.210.96.43
 var db;
+var map;
 var showLogging=true;
 
 var defaultCategories = [
@@ -44,10 +35,12 @@ var defaultCategories = [
 
     function deviceReady() {
         deviceReadyDeferred.resolve();
+        tLog('Device Ready');
     }
 
     $(document).one("mobileinit", function () {
         jqmReadyDeferred.resolve();
+        tLog('JQM Ready');
     });
 
     $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
@@ -56,7 +49,7 @@ var defaultCategories = [
             tLog('APP READY');
             //db = window.openDatabase("gltdb", "1.0", 'gltdb', 100000);
             //db.transaction(setup, errorHandler, dbReady);
-            drawMap();
+            //drawMap();
     }
 
 
@@ -103,14 +96,14 @@ function retrieveCategories() {
                         tx.executeSql("insert into teacategories(slug,category,qty,temp,minlow,minhigh,notes) values(?,?,?,?,?,?,?)", insertArray);
                     });
                 }
-                /*
-                 for (var i=0;i<tea.categories.length;i++) {
-                 var catTarget = jQuery('#teacat_' + tea.categories[i].slug);
-                 if (catTarget.length) {
-                 jQuery('ul',catTarget).append('<li>'+tea.name+'</li>')
-                 }
-                 //console.log(tea.categories[i]);
-                 }*/
+
+//                 for (var i=0;i<tea.categories.length;i++) {
+//                 var catTarget = jQuery('#teacat_' + tea.categories[i].slug);
+//                 if (catTarget.length) {
+//                 jQuery('ul',catTarget).append('<li>'+tea.name+'</li>')
+//                 }
+//                 //console.log(tea.categories[i]);
+//                 }
                 //if one of the categories matches, insert it into the table as a sub item
                 //tea.id
                 //tea.name
@@ -317,3 +310,5 @@ function drawMap(){
       tLog(err.message);
   }
 }
+
+*/
