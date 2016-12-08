@@ -6,9 +6,9 @@ var jqmReadyDeferred = $.Deferred();
 
     function deviceReady() {
         deviceReadyDeferred.resolve();
-        //checkEmailAvailability();
-        //document.addEventListener("online", runOnline, false);
-        //document.addEventListener("offline", runOffline, false);
+        checkEmailAvailability();
+        document.addEventListener("online", runOnline, false);
+        document.addEventListener("offline", runOffline, false);
 
     }
 
