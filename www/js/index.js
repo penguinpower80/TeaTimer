@@ -6,23 +6,19 @@ var jqmReadyDeferred = $.Deferred();
 
     function deviceReady() {
         deviceReadyDeferred.resolve();
-        tLog('Device Ready');
-
-        checkEmailAvailability();
-        document.addEventListener("online", runOnline, false);
-        document.addEventListener("offline", runOffline, false);
+        //checkEmailAvailability();
+        //document.addEventListener("online", runOnline, false);
+        //document.addEventListener("offline", runOffline, false);
 
     }
 
     $(document).one("mobileinit", function () {
         jqmReadyDeferred.resolve();
-        tLog('JQM Ready');
     });
 
     $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
 
     function doWhenBothFrameworksLoaded() {
-            tLog('APP READY');
             //db = window.openDatabase("gltdb", "1.0", 'gltdb', 100000);
             //db.transaction(setup, errorHandler, dbReady);
             //drawMap();
@@ -318,7 +314,7 @@ function hideLoading() {
         $.mobile.loading("hide");
     }, 1);
 }
-
+*/
 function tLog(x) {
    if (showLogging) {
     jQuery('#tlog').append("<div>"+x+"</div>");
@@ -327,7 +323,6 @@ function tLog(x) {
 
 
 
-*/
 
 
 function sendEmail(){
