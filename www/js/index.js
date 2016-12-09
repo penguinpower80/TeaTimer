@@ -429,54 +429,6 @@ function sendEmail() {
 
 }
 
-function drawMap() {
-    try {
-        var mapdiv = document.getElementById("map_canvas");
-        // Initialize the map view
-        map = plugin.google.maps.Map.getMap(mapdiv);
-        // Wait until the map is ready status.
-        map.addEventListener(plugin.google.maps.event.MAP_READY, function () {
-
-            jQuery('#map_canvas_static').hide();
-            jQuery('#map_canvas').show();
-
-
-            map.animateCamera({
-                target: gltlocation,
-                zoom: 17,
-                tilt: 60,
-                bearing: 140,
-                duration: 5000
-            }, function () {
-
-                // Add a maker
-                map.addMarker({
-                    position: gltlocation,
-                    title: "Welecome to \n" +
-                            "the Greenleaf Tea Company.",
-                    snippet: "The tea is awesome!",
-                    animation: plugin.google.maps.Animation.BOUNCE
-                }, function (marker) {
-
-                    // Show the info window
-                    marker.showInfoWindow();
-
-                    // Catch the click event
-                    marker.on(plugin.google.maps.event.INFO_CLICK, function () {
-
-                        // To do something...
-                        alert("Hello world!");
-
-                    });
-                });
-            });
-
-        });
-    } catch (err) {
-        console.log(err.message);
-    }
-}
-
 function errorHandler(e) {
     console.log(e);
 }
