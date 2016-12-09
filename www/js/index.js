@@ -431,9 +431,9 @@ function sendEmail() {
 
 function drawMap() {
     try {
-        var div = document.getElementById("map_canvas");
+        var mapdiv = document.getElementById("map_canvas");
         // Initialize the map view
-        map = plugin.google.maps.Map.getMap(div);
+        map = plugin.google.maps.Map.getMap(mapdiv);
         // Wait until the map is ready status.
         map.addEventListener(plugin.google.maps.event.MAP_READY, function () {
 
