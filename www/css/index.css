@@ -8,3 +8,41 @@
 #hours-table .today * {
     background-color:black;
 }
+
+.ui-listview .ui-li-has-thumb>img:first-child {z-index:999}
+.big { height: 40px;}
+    .big .ui-btn-inner { padding-top:25px; }
+
+    #playercontrols {text-align:center}
+    #playercontrols a {min-width:75%}
+
+
+    #fullTeaTime {
+        position:relative;
+        font-size:2em;
+    }
+.minTime {
+    position: absolute;
+    font-size:.65em;
+    line-height:2em;
+    bottom: 0;
+    left: 0;
+}
+
+.maxTime {
+    font-size:.65em;
+    line-height:2em;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.actualTime {
+    text-align:center;
+    width:100%;
+}
+
+#runningTime {
+    text-align:center;
+    font-size:50vw;
+}

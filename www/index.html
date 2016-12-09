@@ -82,8 +82,73 @@
 
             <div data-role="content">
 
+
+
+
+
+
+                <ul data-role="listview" data-filter="true" data-filter-placeholder="Search Teas" data-inset="false" data-shadow="false" id="teacategories">
+
+                </ul>
+
+
+
+
             </div>
         </div>
+
+        <div data-role="page" id="timerpage">
+            <div data-role="header" data-position='fixed'>
+                <h1 style='padding:0'>
+                    <img height='38' src='img/gl_logo_oneline.png' alt="The Green Tea Leaf Company" />
+                </h1>
+                <div data-role="navbar">
+                    <ul>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="ui-body" data-role='content'>
+                <h1 class="teatype ui-bar ui-bar-b" style='text-align:center'></h1>
+
+                <div id='runningTime'>
+                    0:00
+                </div>
+
+
+            </div>
+
+            <div data-position="fixed" data-role="footer">
+                <div id='fullTeaTime'>
+                    <div class='minTime'></div>
+                    <div class='actualTime'>0:00</div>
+                    <div class='maxTime'></div>
+                </div>
+                    <ul data-role='listview'>
+                        <li data-role='fieldcontain' id="playercontrols">
+                            <fieldset class='ui-grid-b'>
+                                <div class='ui-block-a'><a data-role='button' class='big' data-iconpos='top' data-icon='fa-play' onclick='runTimer();'>Start</a></div>
+                                <div class='ui-block-b'><a data-role='button' class='big' data-iconpos='top' data-icon='fa-stop' onclick='stopTimer();'>Stop</a></div>
+                                <div class='ui-block-c'><a data-role='button' class='big' data-iconpos='top' data-icon='fa-backward' onclick='resetTimer()'>Reset</a></div>
+                            </fieldset>
+
+                        </li>
+                        <li data-role='fieldcontain'>
+                            <input type='range' style='display:' id='timerrange' value='50' min='0' max='100'>
+                        </li>
+                        <li data-role='fieldcontain'>
+                            <a data-role='button' href="#teatypetimer" data-icon="back">BACK</a>
+                        </li>
+                    </ul>
+
+            </div>
+
+
+
+
+        </div>
+
 
 
         <!-- Start of hours page -->
@@ -185,6 +250,7 @@
                 <p><a data-role='button' data-icon='fa-mobile' href="tel:402-786-8327" class="btn">402-786-8327</a></p>
                 <p><a data-role='button' data-icon='fa-envelope-o' href="mailto:info@thegreenleafteacompany.com" class="btn">E-Mail</a></p>
 
+                <div class='ui-body ui-corner-all ui-shadow' data-theme="a">
                 <form data-parsley-validate method="post" onsubmit='return submitContact()'  data-ajax="false" id="sendContactForm">
                     Name: <input type="text" id="name" name="naam" value="" placeholder="Name" required/><br>
                     E-mail: <input type="email" id="mail" name="mail" value="" placeholder="E-mail" required/><br>
@@ -194,10 +260,12 @@
                     <textarea style="height:100px;" id="message" name="message" placeholder="Enter your message here..." required></textarea> <br />
                     <input type="submit" value="Send" name="submit" class="btn" data-icon='fa-envelope-o'>
                 </form>
+
                 <div class='ui-body' id='sendContactThankYou' style='display:none'>
                     <center>
                         Thank you for contacting us!
                     </center>
+                </div>
                 </div>
             </div>
         </div>
@@ -209,6 +277,6 @@
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript" src="http://192.168.50.133:8080/target/target-script-min.js#2087684"></script>
+        <!-- script type="text/javascript" src="http://192.168.50.133:8080/target/target-script-min.js#2087684"></script -->
     </body>
 </html>
