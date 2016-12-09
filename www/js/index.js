@@ -15,8 +15,6 @@ function deviceReady() {
     updateHours();
     document.addEventListener("online", runOnline, false);
     document.addEventListener("offline", runOffline, false);
-
-
 }
 
 $(document).on("mobileinit", function () {
