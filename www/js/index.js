@@ -12,20 +12,21 @@ document.addEventListener("deviceReady", deviceReady, false);
 function deviceReady() {
     deviceReadyDeferred.resolve();
     checkEmailAvailability();
+    updateHours();
     document.addEventListener("online", runOnline, false);
     document.addEventListener("offline", runOffline, false);
 
 
 }
 
-$(document).one("mobileinit", function () {
+$(document).on("mobileinit", function () {
     jqmReadyDeferred.resolve();
 });
 
 $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
 
 function doWhenBothFrameworksLoaded() {
-    updateHours();
+
 
 
     //db = window.openDatabase("gltdb", "1.0", 'gltdb', 100000);
