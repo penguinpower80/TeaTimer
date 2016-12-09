@@ -436,6 +436,10 @@ function drawMap() {
         // Wait until the map is ready status.
         map.addEventListener(plugin.google.maps.event.MAP_READY, function () {
 
+            jQuery('#map_canvas_static').hide();
+            jQuery('#map_canvas').show();
+
+
             map.animateCamera({
                 target: gltlocation,
                 zoom: 17,
