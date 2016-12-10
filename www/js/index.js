@@ -25,17 +25,13 @@ document.addEventListener("deviceReady", deviceReady, false);
 
 function deviceReady() {
     deviceReadyDeferred.resolve();
-    checkEmailAvailability();
-    updateHours();
-    webDbInit();
-    document.addEventListener("online", runOnline, false);
-    document.addEventListener("offline", runOffline, false);
-    webDbInit();
-    categoriesShow();
 }
 
 $(document).on("mobileinit", function () {
     jqmReadyDeferred.resolve();
+    console.log(!!window.cordova);
+
+
 });
 
 $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
@@ -156,12 +152,16 @@ console.log(title);
     }
 
 function doWhenBothFrameworksLoaded() {
-    alert('redy');
 
 
-    //db = window.openDatabase("gltdb", "1.0", 'gltdb', 100000);
-    //db.transaction(setup, errorHandler, dbReady);
-    //drawMap();
+    checkEmailAvailability();
+    updateHours();
+    webDbInit();
+    document.addEventListener("online", runOnline, false);
+    document.addEventListener("offline", runOffline, false);
+    webDbInit();
+    categoriesShow();
+
 }
 
 function highlightDay() {
