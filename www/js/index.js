@@ -3,15 +3,15 @@ var deviceReadyDeferred = $.Deferred();
 var jqmReadyDeferred = $.Deferred();
 var hours = {Sunday: "CLOSED", Monday: "CLOSED", Tuesday: "CLOSED", Wednesday: "9:00am - 6:00pm", Thursday: "9:00am - 6:00pm", Friday: "9:00am - 6:00pm", Saturday: '9:00am - 4:00pm'};
 var fallbackhours = {Sunday: "CLOSED", Monday: "CLOSED", Tuesday: "CLOSED", Wednesday: "9:00am - 6:00pm", Thursday: "9:00am - 6:00pm", Friday: "9:00am - 6:00pm", Saturday: '9:00am - 4:00pm'};
- var defaultCategories = [
- {slug: 'black', name: 'Black', 'qty': '1 Teaspoon', 'temp': '208', 'min': 4, 'max': 5, 'notes': 'Be carefull not to oversteep or it can become bitter!  Use <b>more</b> tea if you like it strong, not a longer steep time!','image':'','special':''},
- {slug: 'white', name: 'White', 'qty': '1 Tablespoon', 'temp': '180', min: 4, 'max': 5, 'notes': '','image':'','special':''},
- {slug: 'green', name: 'Green', 'qty': '1 teaspoon', 'temp': '180', 'min': 1, 'max': 2, 'notes': '','image':'','special':''},
- {slug: 'pu-erh', name: 'Pu-Erh', 'qty': '1 teaspoon', 'temp': '208', 'min': 4, 'max': 5, 'notes': '','image':'','special':''},
- {slug: 'oolong', name: 'Oolong', 'qty': '1 teaspoon', 'temp': '180', 'min': 2, 'max': 3, 'notes': '','image':'','special':''},
- {slug: 'herbal-tisane', name: 'Herbal Blend', 'qty': '1 Tablespoon', 'temp': '208', 'min': 4, 'max': 5, 'notes': '','image':'','special':''},
- {slug: 'fruit-tisane', name: 'Fruit Tisane', 'qty': '1 Tablespoon', 'temp': '208', 'min': 5, 'max': 8, 'notes': '','image':'','special':''}
- ];
+var defaultCategories = [
+    {slug: 'black', name: 'Black', 'qty': '1 Teaspoon', 'temp': '208', 'min': 4, 'max': 5, 'notes': 'Be carefull not to oversteep or it can become bitter!  Use <b>more</b> tea if you like it strong, not a longer steep time!', 'image': '', 'special': ''},
+    {slug: 'white', name: 'White', 'qty': '1 Tablespoon', 'temp': '180', min: 4, 'max': 5, 'notes': '', 'image': '', 'special': ''},
+    {slug: 'green', name: 'Green', 'qty': '1 teaspoon', 'temp': '180', 'min': 1, 'max': 2, 'notes': '', 'image': '', 'special': ''},
+    {slug: 'pu-erh', name: 'Pu-Erh', 'qty': '1 teaspoon', 'temp': '208', 'min': 4, 'max': 5, 'notes': '', 'image': '', 'special': ''},
+    {slug: 'oolong', name: 'Oolong', 'qty': '1 teaspoon', 'temp': '180', 'min': 2, 'max': 3, 'notes': '', 'image': '', 'special': ''},
+    {slug: 'herbal-tisane', name: 'Herbal Blend', 'qty': '1 Tablespoon', 'temp': '208', 'min': 4, 'max': 5, 'notes': '', 'image': '', 'special': ''},
+    {slug: 'fruit-tisane', name: 'Fruit Tisane', 'qty': '1 Tablespoon', 'temp': '208', 'min': 5, 'max': 8, 'notes': '', 'image': '', 'special': ''}
+];
 var map;
 var showLogging = true;
 var gltlocation = {lat: 40.740042, lng: -96.677580};
@@ -29,7 +29,8 @@ function deviceReady() {
 
 $(document).on("mobileinit", function () {
     jqmReadyDeferred.resolve();
-    if (! !!window.cordova) deviceReadyDeferred.resolve();
+    if (!!!window.cordova)
+        deviceReadyDeferred.resolve();
 
     console.log(!!window.cordova);
 
@@ -40,141 +41,153 @@ $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
 
 
 
-var min=0;
-var max=0;
-var runningTime=0;
-var totalRunSeconds=0;
+var min = 0;
+var max = 0;
+var runningTime = 0;
+var totalRunSeconds = 0;
 var cupFill;
-var cupHeight=0;
-var runningInterval='';
-var extraForTime='';
+var cupHeight = 0;
+var runningInterval = '';
+var extraForTime = '';
 function setupTimerPage(me) { // When entering pagetwo
-        showControls();
-        cupFill = $('#cupFill');
-        runningTime=0;
-        min = $(me).data('min');
-        max =$(me).data('max');
-        var title=$(me).data('title');
-        $('#cupFill.full').removeClass('full');
-        if (title=='') title='FREE TIME';
+    showControls();
+    cupFill = $('#cupFill');
+    runningTime = 0;
+    min = $(me).data('min');
+    max = $(me).data('max');
+    var title = $(me).data('title');
+    $('#cupFill.full').removeClass('full');
+    if (title == '')
+        title = 'FREE TIME';
 
-        $('#fullTeaTime .minTime').html(parseMinutes(min));
-        $('#fullTeaTime .maxTime').html(parseMinutes(max));
-        $('#timerpage h1.teatype').html(title);
-        $( ":mobile-pagecontainer" ).pagecontainer( "change", "#timerpage");
+    $('#fullTeaTime .minTime').html(parseMinutes(min));
+    $('#fullTeaTime .maxTime').html(parseMinutes(max));
+    $('#timerpage h1.teatype').html(title);
+    $(":mobile-pagecontainer").pagecontainer("change", "#timerpage");
 
-        var pS = getPercSeconds(min,max,50);
-        totalRunSeconds = pS;
-        $('.actualTime').text( getPrettyTime(pS) );
+    var pS = getPercSeconds(min, max, 50);
+    totalRunSeconds = pS;
+    $('.actualTime').text(getPrettyTime(pS));
 
     //$( ":mobile-pagecontainer" ).pagecontainer( "change", "#teatypetimer");
 
-  $('#timerrange').on('slidestop',function(e){
-    var p = $(this).val();
-    var pS = getPercSeconds(min,max,p);
-    totalRunSeconds = pS;
-    $('.actualTime').text( getPrettyTime(pS) );
-});
+    $('#timerrange').on('slidestop', function (e) {
+        var p = $(this).val();
+        var pS = getPercSeconds(min, max, p);
+        totalRunSeconds = pS;
+        $('.actualTime').text(getPrettyTime(pS));
+    });
 }
 
 function fillCup() {
-    if (totalRunSeconds == 0) return false;
-        var x = (runningTime / totalRunSeconds * 100);
-        if (x < 95) {
-            setCupFill(x)
-        }
+    if (totalRunSeconds == 0)
+        return false;
+    var x = (runningTime / totalRunSeconds * 100);
+    if (x < 95) {
+        setCupFill(x)
+    }
 }
 
-function showControls(){
+function showControls() {
     jQuery('#playercontrols,#sliderHolder').slideDown();
 }
 
-function hideControls(){
+function hideControls() {
     jQuery('#playercontrols,#sliderHolder').slideUp();
 }
 
-function toggleControls(){
-    if (jQuery('#playercontrols').is(':visible')) hideControls();
-    else showControls();
+function toggleControls() {
+    if (jQuery('#playercontrols').is(':visible'))
+        hideControls();
+    else
+        showControls();
 }
 
-function resetSlide(){
+function resetSlide() {
     jQuery('#timerrange').val(50).slider('refresh');
-    var pS = getPercSeconds(min,max,50);
+    var pS = getPercSeconds(min, max, 50);
     totalRunSeconds = pS;
-    $('.actualTime').text( getPrettyTime(pS) );
+    $('.actualTime').text(getPrettyTime(pS));
 }
 
-function runTimer(){
+function runTimer() {
     stopTimer();
     $('#cupFill.full').removeClass('full');
-    if (totalRunSeconds == 0) { setCupFill(35) }
+    if (totalRunSeconds == 0) {
+        setCupFill(35)
+    }
 
-    if ($('.actualTime').text()=='0:00') {
+    if ($('.actualTime').text() == '0:00') {
         $('.actualTime').fadeOut();
         extraForTime = '';
-    } else extraForTime=' / ';
+    } else
+        extraForTime = ' / ';
 
-    jQuery('.steam').animate({opacity:1},1000);
+    jQuery('.steam').animate({opacity: 1}, 1000);
 
-    setTimeout(hideControls,1);
-    runningInterval = setInterval(function(){
-        runningTime+=1;
+    setTimeout(hideControls, 1);
+    runningInterval = setInterval(function () {
+        runningTime += 1;
         fillCup();
-        if (runningTime < 10) $('#runningTime').text( '0:0' + runningTime + extraForTime);
-        else if (runningTime < 60) $('#runningTime').text( '0:' + runningTime + extraForTime);
-        else $('#runningTime').text(getPrettyTime(runningTime) + extraForTime);
+        if (runningTime < 10)
+            $('#runningTime').text('0:0' + runningTime + extraForTime);
+        else if (runningTime < 60)
+            $('#runningTime').text('0:' + runningTime + extraForTime);
+        else
+            $('#runningTime').text(getPrettyTime(runningTime) + extraForTime);
 
         if (totalRunSeconds == runningTime) {
             clearInterval(runningInterval);
             $('#cupFill').addClass('full');
-            jQuery('.steam').animate({opacity:0},1000);
+            jQuery('.steam').animate({opacity: 0}, 1000);
 
 
         }
 
 
-    },1000);
+    }, 1000);
 }
 
-function setCupFill(x){
-    if (cupHeight=='') cupHeight = $('.cup > img').height();
-    if (typeof cupFill == 'undefined') cupFill = $('#cupFill');
-    cupFill.css('height', (cupHeight * (x / 100) ) +'px')
+function setCupFill(x) {
+    if (cupHeight == '')
+        cupHeight = $('.cup > img').height();
+    if (typeof cupFill == 'undefined')
+        cupFill = $('#cupFill');
+    cupFill.css('height', (cupHeight * (x / 100)) + 'px')
 }
 
 
 function setBodyHeight(t) {
-        var hh = $('.ui-page-active .ui-header').outerHeight();
-        var fh = 0;
-        $('.ui-page-active .ui-footer .includeInHeight').each(function(i,e){
-            fh += $(e).outerHeight();
-        });
+    var hh = $('.ui-page-active .ui-header').outerHeight();
+    var fh = 0;
+    $('.ui-page-active .ui-footer .includeInHeight').each(function (i, e) {
+        fh += $(e).outerHeight();
+    });
 
-        var wh = $(window).height();
+    var wh = $(window).height();
 
-        $('.ui-page-active .ui-content').height( wh - (hh + fh) +'px');
+    $('.ui-page-active .ui-content').height(wh - (hh + fh) + 'px');
 }
 
-function resetTimer(){
-    totalRunSeconds=0;
+function resetTimer() {
+    totalRunSeconds = 0;
     $('#cupFill.full').removeClass('full');
-    extraForTime='';
+    extraForTime = '';
     $('.actualTime:hidden').fadeIn();
-    jQuery('.steam').animate({opacity:0},1000);
-    if (runningInterval!='') {
+    jQuery('.steam').animate({opacity: 0}, 1000);
+    if (runningInterval != '') {
         clearInterval(runningInterval);
         $('#runningTime').text('');
         setCupFill(0);
     }
 }
 
-function stopTimer(){
+function stopTimer() {
     $('#cupFill.full').removeClass('full');
-    extraForTime='';
+    extraForTime = '';
     $('.actualTime:hidden').fadeIn();
-    jQuery('.steam').animate({opacity:0},1000);
-    if (runningInterval!='') {
+    jQuery('.steam').animate({opacity: 0}, 1000);
+    if (runningInterval != '') {
         clearInterval(runningInterval);
         setCupFill(0);
     }
@@ -182,59 +195,69 @@ function stopTimer(){
 
 
 
-    //$( document ) .on('pagebeforecreate', function(){
+//$( document ) .on('pagebeforecreate', function(){
 /*
-            var min = $(this).data('min');
-            var max =$(this).data('max');
-            var title=$(this).data('title');
-console.log(title);
+ var min = $(this).data('min');
+ var max =$(this).data('max');
+ var title=$(this).data('title');
+ console.log(title);
 
-*/
+ */
 
 
-    //});
+//});
 
-    function getPrettyTime(time){
-        var minutes = Math.floor(time / 60);
-        var seconds = time - minutes * 60;
-        if (seconds < 10) seconds = '0' + seconds;
-        return minutes+':' + seconds;
+function getPrettyTime(time) {
+    var minutes = Math.floor(time / 60);
+    var seconds = time - minutes * 60;
+    if (seconds < 10)
+        seconds = '0' + seconds;
+    return minutes + ':' + seconds;
+}
+
+function getPercSeconds(start, end, perc) {
+    if (typeof start == 'number')
+        var sSeconds = start * 60;
+    else {
+        x = start.split(':');
+        var sSeconds = x[0] * 60;
+        if (x.length == 2)
+            sSeconds += (x[1] * 1);
+    }
+    if (typeof end == 'number')
+        var eSeconds = end * 60;
+    else {
+        x = end.split(':');
+        var eSeconds = x[0] * 60;
+        if (x.length == 2)
+            eSeconds += (x[1] * 1);
     }
 
-    function getPercSeconds(start,end,perc){
-        if (typeof start == 'number') var sSeconds = start*60;
-        else {
-            x=start.split(':');
-            var sSeconds = x[0] * 60;
-            if (x.length==2) sSeconds += (x[1]*1);
-        }
-        if (typeof end == 'number') var eSeconds = end*60;
-        else {
-            x=end.split(':');
-            var eSeconds = x[0] * 60;
-            if (x.length==2) eSeconds += (x[1]*1);
-        }
-
-        var diff = eSeconds - sSeconds;
-        var offset = Math.ceil(diff * (perc/100),2);
-        return (sSeconds + offset);
+    var diff = eSeconds - sSeconds;
+    var offset = Math.ceil(diff * (perc / 100), 2);
+    return (sSeconds + offset);
 
 
-    }
+}
 
 
-    function parseMinutes(x){
-        if (typeof x =='number') return x+':00';
-        else if (typeof x!='string') return '0:00';
-        else {
-            x.split(':');
-            if (x.length==1) return x[0]+':00';
-            if (x.length==2) {
-                if ((x[1]*1) < 10) return x[0]+':0'+x[1];
-                else return x
-            }
+function parseMinutes(x) {
+    if (typeof x == 'number')
+        return x + ':00';
+    else if (typeof x != 'string')
+        return '0:00';
+    else {
+        x.split(':');
+        if (x.length == 1)
+            return x[0] + ':00';
+        if (x.length == 2) {
+            if ((x[1] * 1) < 10)
+                return x[0] + ':0' + x[1];
+            else
+                return x
         }
     }
+}
 
 function doWhenBothFrameworksLoaded() {
 
@@ -313,7 +336,7 @@ function runOnline() {
 
 function webDbInit() {
     db = window.openDatabase("gltdb", "1.0", 'gltdb', 100000);
-    db.transaction(setup, errorHandler, function(){});
+    db.transaction(setup, errorHandler, function () {});
 }
 
 function setup(tx) {
@@ -326,19 +349,21 @@ function setup(tx) {
 }
 
 
-    function updateFeed(){
-        if (!navigator.onLine) return false;
-                lastupdate = localStorage.getItem('lastfeed');
-                //var d = new Date();
-                //lastupdate = localStorage.setItem('lastfeed',d.toISOString());
+function updateFeed() {
+    if (!navigator.onLine)
+        return false;
+    lastupdate = localStorage.getItem('lastfeed');
+    //var d = new Date();
+    //lastupdate = localStorage.setItem('lastfeed',d.toISOString());
 
 
-                }
+}
 
 
 
 function categoriesShow() {
-    if (typeof db =='undefined') return;
+    if (typeof db == 'undefined')
+        return;
     db.transaction(function (tx) {
         tx.executeSql("select * from teacategories", [], function (tx, results) {
             console.log('Found ' + results.rows.length);
@@ -349,19 +374,22 @@ function categoriesShow() {
                     var c = results.rows.item(i);
                     var li = "<li id='teacat_" + c.slug + "'><a href='#'>"
 
-                    if ( c.image !='') {
+                    if (c.image != '') {
 
                     } else {
                         li += "<img src='img/logo.png' />";
                     }
 
                     li += "<h2>" + c.category + "</h2><p>";
-                    if (c.qty!='') li+= c.qty + " per 6-8oz";
-                    if (c.temp!='') li+= ' | ' + c.temp + "<sup>o</sup>F ";
-                    if (c.minLow!='') li+=' | ' + c.minlow + "-" + c.minhigh + ' minutes';
-                    li+="</p></a>";
+                    if (c.qty != '')
+                        li += c.qty + " per 6-8oz";
+                    if (c.temp != '')
+                        li += ' | ' + c.temp + "<sup>o</sup>F ";
+                    if (c.minLow != '')
+                        li += ' | ' + c.minlow + "-" + c.minhigh + ' minutes';
+                    li += "</p></a>";
 
-                    li += "<a data-min='"+c.minlow+"' data-max='"+c.minhigh+"' data-title='"+c.category+"' data-icon='fa-clock-o' onclick='setupTimerPage(this);' > TIME </a>";
+                    li += "<a data-min='" + c.minlow + "' data-max='" + c.minhigh + "' data-title='" + c.category + "' data-icon='fa-clock-o' onclick='setupTimerPage(this);' > TIME </a>";
 
                     li += "</li>";
                     cats += li;
@@ -379,37 +407,37 @@ function categoriesShow() {
 }
 
 //Attempt to update CATEGORIES library from site
- function retrieveCategories() {
-        showLoading();
-        if (typeof db == 'undefined') webDbInit();
-        var endpoint = glturl + '/wp-json/wc/v1/products/categories';
-        jQuery.ajax({
-            url: endpoint + '?per_page=100&parent=31&consumer_key=' + gltkey + '&consumer_secret=' + gltsecret,
-            beforeSend: function (xhr) {
-                    showLoading();
-                    xhr.setRequestHeader("Authorization", "Basic " + btoa(gltkey + ":" + gltsecret));
-                },
-            method: 'GET',
-            datatype: 'json',
-            success: function (cats) {
-                console.table(cats);
-                clearCategoriesTable(function(){});
-                jQuery.each(cats, function (i, cat) {
-                    console.log(cat);
-                    if (cat.slug!='seasonal' && cat.slug!='organic') {
-                        var insertArray = [
-                            cat.slug,
-                            cat.name,
-                            cat.prep.amount,
-                            cat.prep.temp,
-                            cat.prep.min,
-                            cat.prep.max,
-                            cat.prep.note
-                            ];
+function retrieveCategories() {
+    showLoading();
+    if (typeof db == 'undefined') webDbInit();
+    var endpoint = glturl + '/wp-json/wc/v1/products/categories';
+    jQuery.ajax({
+        url: endpoint + '?per_page=100&parent=31&consumer_key=' + gltkey + '&consumer_secret=' + gltsecret,
+        beforeSend: function (xhr) {
+            showLoading();
+            xhr.setRequestHeader("Authorization", "Basic " + btoa(gltkey + ":" + gltsecret));
+        },
+        method: 'GET',
+        datatype: 'json',
+        success: function (cats) {
+            console.table(cats);
+            clearCategoriesTable(function () {});
+            jQuery.each(cats, function (i, cat) {
+                console.log(cat);
+                if (cat.slug != 'seasonal' && cat.slug != 'organic') {
+                    var insertArray = [
+                        cat.slug,
+                        cat.name,
+                        cat.prep.amount,
+                        cat.prep.temp,
+                        cat.prep.min,
+                        cat.prep.max,
+                        cat.prep.note
+                    ];
                     db.transaction(function (tx) {
-                    tx.executeSql("insert into teacategories(slug,category,qty,temp,minlow,minhigh,notes) values(?,?,?,?,?,?,?)", insertArray);
-                });
-            }
+                        tx.executeSql("insert into teacategories(slug,category,qty,temp,minlow,minhigh,notes) values(?,?,?,?,?,?,?)", insertArray);
+                    });
+                }
 
                 //                 for (var i=0;i<tea.categories.length;i++) {
                 //                 var catTarget = jQuery('#teacat_' + tea.categories[i].slug);
@@ -427,17 +455,19 @@ function categoriesShow() {
                 hideLoading();
             });
         },
-        complete: function () {hideLoading()}
+        complete: function () {
+            hideLoading()
+        }
     });
- }
+}
 
-  function categoriesInitialize(tx, results) {
-        console.log('initilizing categories table');
-        console.log('Found ' + results.rows.length);
-      //should only need to do this once, if nothing is in the db -> will most likely get re-written when online
-        if (results.rows.length == 0) { //we found nada, so lets insert the basic from the app
-            for (var i = 0; i < defaultCategories.length; i++) {
-                console.log(defaultCategories[i]);
+function categoriesInitialize(tx, results) {
+    console.log('initilizing categories table');
+    console.log('Found ' + results.rows.length);
+    //should only need to do this once, if nothing is in the db -> will most likely get re-written when online
+    if (results.rows.length == 0) { //we found nada, so lets insert the basic from the app
+        for (var i = 0; i < defaultCategories.length; i++) {
+            console.log(defaultCategories[i]);
             var insertArray = [
                 defaultCategories[i].slug,
                 defaultCategories[i].name,
@@ -452,41 +482,41 @@ function categoriesShow() {
             tx.executeSql("insert into teacategories(slug,category,qty,temp,minlow,minhigh,notes,image,special) values(?,?,?,?,?,?,?,?,?)", insertArray);
         }
     }
-  }
+}
 
-   function showLoading() {
- setTimeout(function () {
- console.log('LOADING SPINNER');
- var $this = $(this),
- theme = $this.jqmData("theme") || $.mobile.loader.prototype.options.theme,
- msgText = $this.jqmData("msgtext") || $.mobile.loader.prototype.options.text,
- textVisible = $this.jqmData("textvisible") || $.mobile.loader.prototype.options.textVisible,
- textonly = !!$this.jqmData("textonly");
- html = $this.jqmData("html") || "";
- $.mobile.loading('show', {
- text: msgText,
- textVisible: textVisible,
- theme: theme,
- textonly: textonly,
- html: html
- });
- }, 1);
- }
+function showLoading() {
+    setTimeout(function () {
+        console.log('LOADING SPINNER');
+        var $this = $(this),
+                theme = $this.jqmData("theme") || $.mobile.loader.prototype.options.theme,
+                msgText = $this.jqmData("msgtext") || $.mobile.loader.prototype.options.text,
+                textVisible = $this.jqmData("textvisible") || $.mobile.loader.prototype.options.textVisible,
+                textonly = !!$this.jqmData("textonly");
+        html = $this.jqmData("html") || "";
+        $.mobile.loading('show', {
+            text: msgText,
+            textVisible: textVisible,
+            theme: theme,
+            textonly: textonly,
+            html: html
+        });
+    }, 1);
+}
 
- function alertDone(){
+function alertDone() {
     if (!!window.cordova) {
-            notification.beep(3);
-            notification.vibrate(2000);
-        }
+        notification.beep(3);
+        notification.vibrate(2000);
+    }
 
- }
+}
 
- function hideLoading() {
- setTimeout(function () {
- console.log('NO LOADING SPINNER');
- $.mobile.loading("hide");
- }, 1);
- }
+function hideLoading() {
+    setTimeout(function () {
+        console.log('NO LOADING SPINNER');
+        $.mobile.loading("hide");
+    }, 1);
+}
 
 //http://thegreenleafteacompany.com/wp-json/wp/v2/posts
 //context = embed|view
@@ -665,12 +695,12 @@ function categoriesShow() {
 
 
 function errorHandler(e) {
-console.log(e);
-        }
+    console.log(e);
+}
 
 
 
-function dropTable(x){
+function dropTable(x) {
     db.transaction(function (tx) {
         tx.executeSql('DROP TABLE ' + x);
     });
