@@ -51,6 +51,7 @@ var runningInterval = '';
 var extraForTime = '';
 function setupTimerPage(me) { // When entering pagetwo
     showControls();
+    setBodyHeight();
     cupFill = $('#cupFill');
     runningTime = 0;
     min = $(me).data('min');
@@ -260,15 +261,14 @@ function parseMinutes(x) {
 }
 
 function doWhenBothFrameworksLoaded() {
-
-
-
     updateHours();
     webDbInit();
     document.addEventListener("online", runOnline, false);
     document.addEventListener("offline", runOffline, false);
-    webDbInit();
-    categoriesShow();
+
+    var r = retrieveCategories();
+    if (r===false) categoriesShow();
+    retrieveTeas();
 
 }
 
@@ -289,14 +289,12 @@ function updateHours() {
         method: 'GET',
         datatype: 'json',
         success: function (x) {
-            console.log(x);
             localStorage.setItem('glthours', x);
             populateHours();
         },
         error: function () {
 
             localStorage.setItem('glthours', fallbackhours);
-            console.log('Unable to get hours');
         }
     });
 }
@@ -308,7 +306,6 @@ function populateHours() {
         try {
             hours = JSON.parse(tempHours);
         } catch (err) {
-            console.log('unable to parse hours');
             hours = fallbackhours;
         }
     }
@@ -340,7 +337,7 @@ function webDbInit() {
 }
 
 function setup(tx) {
-    tx.executeSql('create table if not exists teas(id INTEGER PRIMARY KEY, log TEXT, created DATE);');
+    tx.executeSql('create table if not exists teas(id INTEGER PRIMARY KEY, tea TEXT, category TEXT);');
     tx.executeSql('create table if not exists teacategories(slug TEXT PRIMARY KEY, category TEXT, qty type TEXT, temp TEXT, minlow INTEGER, minhigh INTEGER, notes TEXT, image TEXT, special TEXT);');
     tx.executeSql('create table if not exists teafeed(id INTEGER PRIMARY KEY, excerpt TEXT, link type TEXT, thumbnail TEXT);');
     db.transaction(function (tx) {
@@ -360,71 +357,82 @@ function updateFeed() {
 }
 
 
-
+var specialCats = {}
 function categoriesShow() {
-    if (typeof db == 'undefined')
-        return;
+    if (typeof db == 'undefined') return;
     db.transaction(function (tx) {
         tx.executeSql("select * from teacategories", [], function (tx, results) {
-            console.log('Found ' + results.rows.length);
             if (results.rows.length != 0) {
 
                 var cats = ''
                 for (var i = 0; i < results.rows.length; i++) {
                     var c = results.rows.item(i);
-                    var li = "<li id='teacat_" + c.slug + "'><a href='#'>"
+                    specialCats[c.slug]=c.special;
+                    if (c.special!=='1') {
+                        var li = "<li id='teacat_" + c.slug + "'><a onclick='jQuery(this).parent().find(\"ul\").slideToggle()' href='#'>"
 
-                    if (c.image != '') {
+                        if (c.image != '') {
+                            li += "<img src='"+c.image+"' />";
+                        } else {
+                            li += "<img src='img/logo.png' />";
+                        }
 
-                    } else {
-                        li += "<img src='img/logo.png' />";
+                        li += "<h2>" + c.category + "</h2><p>";
+                        if (c.qty != '')
+                            li += c.qty + " per 6-8oz";
+                        if (c.temp != '')
+                            li += ' | ' + c.temp + "<sup>o</sup>F ";
+                        if (c.minLow != '')
+                            li += ' | ' + c.minlow + "-" + c.minhigh + ' minutes';
+                        li += "</p></a>";
+
+                        li += "<a data-min='" + c.minlow + "' data-max='" + c.minhigh + "' data-title='" + c.category + "' data-icon='fa-clock-o' onclick='setupTimerPage(this);' > TIME </a>";
+
+                        li += "</li>";
+                        cats += li;
                     }
-
-                    li += "<h2>" + c.category + "</h2><p>";
-                    if (c.qty != '')
-                        li += c.qty + " per 6-8oz";
-                    if (c.temp != '')
-                        li += ' | ' + c.temp + "<sup>o</sup>F ";
-                    if (c.minLow != '')
-                        li += ' | ' + c.minlow + "-" + c.minhigh + ' minutes';
-                    li += "</p></a>";
-
-                    li += "<a data-min='" + c.minlow + "' data-max='" + c.minhigh + "' data-title='" + c.category + "' data-icon='fa-clock-o' onclick='setupTimerPage(this);' > TIME </a>";
-
-                    li += "</li>";
-                    cats += li;
                 }
                 jQuery('#teacategories').html('');
                 jQuery('#teacategories').append(cats);//.listview("refresh");
                 //$('#teacategories').listview('refresh')
                 jQuery('#teacategories').listview();
                 jQuery('#teacategories').listview('refresh');
+
             } else {
-                console.log('No cats to show');
+                //console.log('No cats to show');
             }
+
         }, errorHandler);
     }, errorHandler, function () {});
+    teasShow();
 }
 
 //Attempt to update CATEGORIES library from site
 function retrieveCategories() {
+    //console.log('Attempting to retrive new');
+    if (!navigator.onLine) return false;
     showLoading();
     if (typeof db == 'undefined') webDbInit();
     var endpoint = glturl + '/wp-json/wc/v1/products/categories';
     jQuery.ajax({
         url: endpoint + '?per_page=100&parent=31&consumer_key=' + gltkey + '&consumer_secret=' + gltsecret,
         beforeSend: function (xhr) {
-            showLoading();
             xhr.setRequestHeader("Authorization", "Basic " + btoa(gltkey + ":" + gltsecret));
         },
         method: 'GET',
         datatype: 'json',
         success: function (cats) {
-            console.table(cats);
-            clearCategoriesTable(function () {});
+            //we succesfully got at least some json here
+              clearCategoriesTable(function () {});
             jQuery.each(cats, function (i, cat) {
-                console.log(cat);
-                if (cat.slug != 'seasonal' && cat.slug != 'organic') {
+
+                var image = '';
+                if (typeof cat.thumb == 'object' && typeof cat.thumb[0] != 'undefined')  image = cat.thumb[0];
+
+                var special='';
+                if (cat.show=='2') var special='1';
+
+                if (cat.show!='0') {
                     var insertArray = [
                         cat.slug,
                         cat.name,
@@ -432,27 +440,17 @@ function retrieveCategories() {
                         cat.prep.temp,
                         cat.prep.min,
                         cat.prep.max,
-                        cat.prep.note
+                        cat.prep.note,
+                        image,
+                        special
                     ];
                     db.transaction(function (tx) {
-                        tx.executeSql("insert into teacategories(slug,category,qty,temp,minlow,minhigh,notes) values(?,?,?,?,?,?,?)", insertArray);
+                        tx.executeSql("insert into teacategories(slug,category,qty,temp,minlow,minhigh,notes,image,special) values(?,?,?,?,?,?,?,?,?)", insertArray);
                     });
                 }
 
-                //                 for (var i=0;i<tea.categories.length;i++) {
-                //                 var catTarget = jQuery('#teacat_' + tea.categories[i].slug);
-                //                 if (catTarget.length) {
-                //                 jQuery('ul',catTarget).append('<li>'+tea.name+'</li>')
-                //                 }
-                //                 //console.log(tea.categories[i]);
-                //                 }
-                //if one of the categories matches, insert it into the table as a sub item
-                //tea.id
-                //tea.name
-                //tea.images[0].src
-                //tea.categories (array) .id,.name,.slug
-
                 hideLoading();
+                categoriesShow();
             });
         },
         complete: function () {
@@ -461,13 +459,27 @@ function retrieveCategories() {
     });
 }
 
+function clearTeasTable() {
+     db.transaction(function (tx) {
+        tx.executeSql("delete from teas");
+        }, errorHandler, function () {
+
+    });
+ }
+
+ function clearCategoriesTable() {
+     db.transaction(function (tx) {
+        tx.executeSql("delete from teacategories");
+        }, errorHandler, function () {
+
+    });
+ }
+
+
 function categoriesInitialize(tx, results) {
-    console.log('initilizing categories table');
-    console.log('Found ' + results.rows.length);
     //should only need to do this once, if nothing is in the db -> will most likely get re-written when online
     if (results.rows.length == 0) { //we found nada, so lets insert the basic from the app
         for (var i = 0; i < defaultCategories.length; i++) {
-            console.log(defaultCategories[i]);
             var insertArray = [
                 defaultCategories[i].slug,
                 defaultCategories[i].name,
@@ -486,7 +498,6 @@ function categoriesInitialize(tx, results) {
 
 function showLoading() {
     setTimeout(function () {
-        console.log('LOADING SPINNER');
         var $this = $(this),
                 theme = $this.jqmData("theme") || $.mobile.loader.prototype.options.theme,
                 msgText = $this.jqmData("msgtext") || $.mobile.loader.prototype.options.text,
@@ -513,10 +524,87 @@ function alertDone() {
 
 function hideLoading() {
     setTimeout(function () {
-        console.log('NO LOADING SPINNER');
         $.mobile.loading("hide");
     }, 1);
 }
+
+
+function teasShow() {
+    db.transaction(function (tx) {
+        tx.executeSql("select * from teas", [], function (tx, results) {
+            if (results.rows.length != 0) {
+                for (var i = 0; i < results.rows.length; i++) {
+                    var tea = results.rows[i];
+                    var myCategories = JSON.parse(tea.category);
+
+                    for (var c = 0; c < myCategories.length; c++) {
+                        if (typeof specialCats[myCategories[c].slug] != 'undefined' && specialCats[myCategories[c].slug]=='1') tea.tea+=" ("+ myCategories[c].name +")"
+                    };
+
+                    for (var c = 0; c < myCategories.length; c++) {
+                        var catTarget = jQuery('#teacat_' + myCategories[c].slug);
+
+                        if (catTarget.length) {
+                            if (jQuery('ul', catTarget).length ==0) {
+                                jQuery(catTarget).append('<ul style="display:none" class="tealist"><li>' + tea.tea + '</li></ul>')
+                            } else {
+                                jQuery('ul', catTarget).append('<li>' + tea.tea + '</li>')
+                            }
+
+                            catTarget.data('filtertext', catTarget.data('filtertext') + ' ' +tea.tea);
+                        }
+                    }
+                }
+            }
+            })
+
+    })
+}
+
+
+//Attempt to update TEA library from site
+ function retrieveTeas() {
+        if (typeof db == 'undefined') webDbInit();
+
+        var endpoint = glturl + '/wp-json/wc/v1/products';
+        jQuery.ajax({
+            url: endpoint + '?per_page=100&category=31&consumer_key=' + gltkey + '&consumer_secret=' + gltsecret,
+            beforeSend: function (xhr) {
+                showLoading();
+                xhr.setRequestHeader("Authorization", "Basic " + btoa(gltkey + ":" + gltsecret));
+            },
+            method: 'GET',
+            datatype: 'json',
+            success: function (teas) {
+                clearTeasTable();
+                jQuery.each(teas, function (i, tea) {
+                        var insertArray = [
+                            tea.id,
+                            tea.name,
+                            JSON.stringify(tea.categories)
+                        ];
+
+
+                    db.transaction(function (tx) {
+                        tx.executeSql("insert into teas(id,tea,category) values(?,?,?)", insertArray);
+                    });
+
+/*
+                    for (var i = 0; i < tea.categories.length; i++) {
+                        var catTarget = jQuery('#teacat_' + tea.categories[i].slug);
+                        if (catTarget.length) {
+                            jQuery('ul', catTarget).append('<li>' + tea.name + '</li>')
+                        } */
+
+
+                });
+            },
+            complete: function () {
+                hideLoading()
+            }
+        });
+ }
+
 
 //http://thegreenleafteacompany.com/wp-json/wp/v2/posts
 //context = embed|view
@@ -622,30 +710,9 @@ function hideLoading() {
 
 
 
- function clearCategoriesTable() {
- db.transaction(function (tx) {
- tx.executeSql("delete from teacategories");
- }, errorHandler, function () {
- jQuery('#teacategories').html("<li>Categories Cleared</li>").listview("refresh");
- jQuery('#teatypetimer .ui-header h1').html('Select your type of tea');
- });
- }
-
- function dbReady() {
- console.log('db.ready');
- }
-
- function webDbInit() {
- db = window.openDatabase("gltdb", "1.0", 'gltdb', 100000);
- db.transaction(setup, errorHandler, dbReady);
- }
-
- //navigator.onLine
-
  function checkConnection() {
 
  var networkState = navigator.connection.type;
-
  var states = {};
  states[Connection.UNKNOWN] = 'Unknown connection';
  states[Connection.ETHERNET] = 'Ethernet connection';
@@ -659,40 +726,7 @@ function hideLoading() {
  tLog('Connection type: ' + states[networkState]);
  }
 
-
- function showLoading() {
- setTimeout(function () {
- console.log('LOADING SPINNER');
- var $this = $(this),
- theme = $this.jqmData("theme") || $.mobile.loader.prototype.options.theme,
- msgText = $this.jqmData("msgtext") || $.mobile.loader.prototype.options.text,
- textVisible = $this.jqmData("textvisible") || $.mobile.loader.prototype.options.textVisible,
- textonly = !!$this.jqmData("textonly");
- html = $this.jqmData("html") || "";
- $.mobile.loading('show', {
- text: msgText,
- textVisible: textVisible,
- theme: theme,
- textonly: textonly,
- html: html
- });
- }, 1);
- }
-
- function hideLoading() {
- setTimeout(function () {
- console.log('NO LOADING SPINNER');
- $.mobile.loading("hide");
- }, 1);
- }
  */
-
-
-
-
-
-
-
 
 function errorHandler(e) {
     console.log(e);
