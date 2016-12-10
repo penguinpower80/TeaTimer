@@ -102,27 +102,31 @@
                 <h1 style='padding:0'>
                     <img height='38' src='img/gl_logo_oneline.png' alt="The Green Tea Leaf Company" />
                 </h1>
-                <div data-role="navbar">
-                    <ul>
-                        <li></li>
-                    </ul>
-                </div>
+                <h1 class="teatype ui-bar ui-bar-b" style='text-align:center'>Free Timer</h1>
             </div>
 
-            <div class="ui-body" data-role='content'>
-                <h1 class="teatype ui-bar ui-bar-b" style='text-align:center'></h1>
+            <div style='position:relative' data-role='content'>
 
-                <div id='runningTime'>
-                    0:00
+
+                <div id='cupandsteam'>
+                    <div class='steam' style='opacity:0;'><img src='img/steam_narrow.png' /></div>
+                    <div class='cup'>
+                        <img src='img/cup.png'>
+                        <div id='cupFill'></div>
+                    </div>
+
                 </div>
 
 
             </div>
 
             <div data-position="fixed" data-role="footer">
-                <div id='fullTeaTime'>
+                <div id='fullTeaTime'  class='includeInHeight'>
                     <div class='minTime'></div>
+                    <div class='timeHolders' style='width:100%;text-align:center;'>
+                    <div id='runningTime'></div>
                     <div class='actualTime'>0:00</div>
+                    </div>
                     <div class='maxTime'></div>
                 </div>
                     <ul data-role='listview'>
@@ -134,11 +138,20 @@
                             </fieldset>
 
                         </li>
-                        <li data-role='fieldcontain'>
-                            <input type='range' style='display:' id='timerrange' value='50' min='0' max='100'>
+                        <li data-role='fieldcontain' id="sliderHolder">
+
+                            <div>
+                            <input type='range' style='display:none' id='timerrange' value='50' min='0' max='100'>
+                            </div>
+                            <div>
+                            <a href='#' data-role='button' data-inline='' data-iconpos='' onclick="resetSlide()">Reset</a>
+                            </div>
                         </li>
-                        <li data-role='fieldcontain'>
-                            <a data-role='button' href="#teatypetimer" data-icon="back">BACK</a>
+                        <li data-role='fieldcontain' class='includeInHeight'>
+                            <div class='ui-bar' style='padding:0;vertical-align:top;'>
+                                <a data-role='button' class='' href="#teatypetimer" data-icon="back" onclick='resetTimer()'>BACK</a>
+                                 <a href="#" data-role="button" class="ui-btn-right" data-icon="grid" onclick='toggleControls()' data-iconpos="notext">Up</a>
+                            </div>
                         </li>
                     </ul>
 
@@ -276,6 +289,6 @@
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
-        <script type="text/javascript" src="http://192.168.50.133:8080/target/target-script-min.js#2087684"></script>
+        <!-- script type="text/javascript" src="http://192.168.50.133:8080/target/target-script-min.js#2087684"></script -->
     </body>
 </html>

@@ -29,6 +29,8 @@ function deviceReady() {
 
 $(document).on("mobileinit", function () {
     jqmReadyDeferred.resolve();
+    if (! !!window.cordova) deviceReadyDeferred.resolve();
+
     console.log(!!window.cordova);
 
 
@@ -41,51 +43,141 @@ $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
 var min=0;
 var max=0;
 var runningTime=0;
+var totalRunSeconds=0;
+var cupFill;
+var cupHeight=0;
 var runningInterval='';
+var extraForTime='';
 function setupTimerPage(me) { // When entering pagetwo
+        showControls();
+        cupFill = $('#cupFill');
         runningTime=0;
         min = $(me).data('min');
         max =$(me).data('max');
         var title=$(me).data('title');
-
+        $('#cupFill.full').removeClass('full');
         if (title=='') title='FREE TIME';
 
         $('#fullTeaTime .minTime').html(parseMinutes(min));
         $('#fullTeaTime .maxTime').html(parseMinutes(max));
         $('#timerpage h1.teatype').html(title);
-$( ":mobile-pagecontainer" ).pagecontainer( "change", "#timerpage");
+        $( ":mobile-pagecontainer" ).pagecontainer( "change", "#timerpage");
 
-var pS = getPercSeconds(min,max,50);
-$('.actualTime').text( getPrettyTime(pS) );
+        var pS = getPercSeconds(min,max,50);
+        totalRunSeconds = pS;
+        $('.actualTime').text( getPrettyTime(pS) );
 
     //$( ":mobile-pagecontainer" ).pagecontainer( "change", "#teatypetimer");
 
   $('#timerrange').on('slidestop',function(e){
     var p = $(this).val();
     var pS = getPercSeconds(min,max,p);
+    totalRunSeconds = pS;
     $('.actualTime').text( getPrettyTime(pS) );
 });
 }
 
+function fillCup() {
+    if (totalRunSeconds == 0) return false;
+        var x = (runningTime / totalRunSeconds * 100);
+        if (x < 95) {
+            setCupFill(x)
+        }
+}
+
+function showControls(){
+    jQuery('#playercontrols,#sliderHolder').slideDown();
+}
+
+function hideControls(){
+    jQuery('#playercontrols,#sliderHolder').slideUp();
+}
+
+function toggleControls(){
+    if (jQuery('#playercontrols').is(':visible')) hideControls();
+    else showControls();
+}
+
+function resetSlide(){
+    jQuery('#timerrange').val(50).slider('refresh');
+    var pS = getPercSeconds(min,max,50);
+    totalRunSeconds = pS;
+    $('.actualTime').text( getPrettyTime(pS) );
+}
+
 function runTimer(){
     stopTimer();
+    $('#cupFill.full').removeClass('full');
+    if (totalRunSeconds == 0) { setCupFill(35) }
+
+    if ($('.actualTime').text()=='0:00') {
+        $('.actualTime').fadeOut();
+        extraForTime = '';
+    } else extraForTime=' / ';
+
+    jQuery('.steam').animate({opacity:1},1000);
+
+    setTimeout(hideControls,1);
     runningInterval = setInterval(function(){
         runningTime+=1;
-        if (runningTime < 10) $('#runningTime').text( '0:0' + runningTime);
-        else if (runningTime < 60) $('#runningTime').text( '0:' + runningTime);
-        else $('#runningTime').text(getPrettyTime(runningTime));
+        fillCup();
+        if (runningTime < 10) $('#runningTime').text( '0:0' + runningTime + extraForTime);
+        else if (runningTime < 60) $('#runningTime').text( '0:' + runningTime + extraForTime);
+        else $('#runningTime').text(getPrettyTime(runningTime) + extraForTime);
+
+        if (totalRunSeconds == runningTime) {
+            clearInterval(runningInterval);
+            $('#cupFill').addClass('full');
+            jQuery('.steam').animate({opacity:0},1000);
+
+
+        }
 
 
     },1000);
 }
 
+function setCupFill(x){
+    if (cupHeight=='') cupHeight = $('.cup > img').height();
+    if (typeof cupFill == 'undefined') cupFill = $('#cupFill');
+    cupFill.css('height', (cupHeight * (x / 100) ) +'px')
+}
+
+
+function setBodyHeight(t) {
+        var hh = $('.ui-page-active .ui-header').outerHeight();
+        var fh = 0;
+        $('.ui-page-active .ui-footer .includeInHeight').each(function(i,e){
+            fh += $(e).outerHeight();
+        });
+
+        var wh = $(window).height();
+
+        $('.ui-page-active .ui-content').height( wh - (hh + fh) +'px');
+}
+
 function resetTimer(){
-    runningInterval=0;
-    $('#runningTime').text('0:00');
+    totalRunSeconds=0;
+    $('#cupFill.full').removeClass('full');
+    extraForTime='';
+    $('.actualTime:hidden').fadeIn();
+    jQuery('.steam').animate({opacity:0},1000);
+    if (runningInterval!='') {
+        clearInterval(runningInterval);
+        $('#runningTime').text('');
+        setCupFill(0);
+    }
 }
 
 function stopTimer(){
-    if (runningInterval!='') clearInterval(runningInterval);
+    $('#cupFill.full').removeClass('full');
+    extraForTime='';
+    $('.actualTime:hidden').fadeIn();
+    jQuery('.steam').animate({opacity:0},1000);
+    if (runningInterval!='') {
+        clearInterval(runningInterval);
+        setCupFill(0);
+    }
 }
 
 
@@ -124,15 +216,8 @@ console.log(title);
         }
 
         var diff = eSeconds - sSeconds;
-        var offset = Math.round(diff * (perc/100),2);
-
-
+        var offset = Math.ceil(diff * (perc/100),2);
         return (sSeconds + offset);
-
-
-
-
-
 
 
     }
@@ -154,7 +239,7 @@ console.log(title);
 function doWhenBothFrameworksLoaded() {
 
 
-    checkEmailAvailability();
+
     updateHours();
     webDbInit();
     document.addEventListener("online", runOnline, false);
@@ -223,17 +308,7 @@ function runOnline() {
     jQuery('#sendContactForm').show();
 }
 
-function checkEmailAvailability() {
-    cordova.plugins.email.isAvailable(
-            function (isAvailable) {
-                if (isAvailable) {
-                    jQuery('#sendEmailButton').fadeIn();
-                } else {
-                    jQuery('#sendEmailButton').fadeOut();
-                }
-            }
-    );
-}
+
 
 
 function webDbInit() {
@@ -293,7 +368,9 @@ function categoriesShow() {
                 }
                 jQuery('#teacategories').html('');
                 jQuery('#teacategories').append(cats);//.listview("refresh");
-                //jQuery('#teacategories li ul').listview();
+                //$('#teacategories').listview('refresh')
+                jQuery('#teacategories').listview();
+                jQuery('#teacategories').listview('refresh');
             } else {
                 console.log('No cats to show');
             }
@@ -394,6 +471,14 @@ function categoriesShow() {
  html: html
  });
  }, 1);
+ }
+
+ function alertDone(){
+    if (!!window.cordova) {
+            notification.beep(3);
+            notification.vibrate(2000);
+        }
+
  }
 
  function hideLoading() {
@@ -577,19 +662,7 @@ function categoriesShow() {
 
 
 
-function sendEmail() {
-cordova.plugins.email.isAvailable(
-        function (isAvailable) {
-        if (isAvailable) {
-        cordova.plugins.email.open({
-        to: "info@thegreenleafteacompany.com"
-        }, function () {});
-        } else {
-        console.log('Email is not available on this platform');
-        }
-        }
-);
-        }
+
 
 function errorHandler(e) {
 console.log(e);
