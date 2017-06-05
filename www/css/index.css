@@ -1,11 +1,11 @@
 body {
-    /*background-image: url(../img/teadrying.jpg);*/
+    background-image: url(../img/teadrying.jpg);
     background-position: center center;
     background-size: cover
 }
 
 .ui-page-theme-a {
-    /*background-color: rgba(159, 182, 98, 0);*/
+    background-color: rgba(159, 182, 98, 0);
 }
 
 
@@ -99,10 +99,6 @@ h1.teatype.ui-bar.ui-bar-b {
     max-height:190px;
     width:auto;
     background-size: 600% 600%;
-    //-webkit-animation: steaming 10s ease infinite;
-    //-moz-animation: steaming 10s ease infinite;
-    //-o-animation: steaming 10s ease infinite;
-    //animation: steaming 10s ease infinite;
 }
 
 
